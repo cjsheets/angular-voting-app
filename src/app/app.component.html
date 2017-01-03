@@ -8,6 +8,9 @@
   <button (click)="login()">Login</button>
   <button (click)="logout()">Logout</button>-->
 
-<b>Login Status: </b> {{ _auth?.isLoggedIn() ? "yes" : "no" }}
+<b>Login Status: </b>
+<span *ngIf="loggedIn == true">yes</span>
+<span *ngIf="loggedIn != true">no</span>
+
 
   <template ngbModalContainer></template>

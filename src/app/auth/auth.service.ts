@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
+import { Subject } from 'rxjs/Subject';
 
 import { Logger } from '../shared/logger.service';
 
 @Injectable()
 export class AuthService {
-  private loggedIn: boolean;
+  private loggedIn = new Subject<boolean>();
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
@@ -24,21 +22,22 @@ export class AuthService {
 
   login(): void {
     this.af.auth.login().then((success) => {
-      this.loggedIn = true;
+       this.loggedIn.next( true );
     }).catch((err) => {
-      this.loggedIn = false;
+      this.loggedIn.next( false );
       this._log['log']( "Error Logging In:" )
       this._log['warn']( err )
     });
   }
 
   logout(): void {
+    this.loggedIn.next( false );
     this.af.auth.logout();
-    this.loggedIn = false;
   }
 
-  isLoggedIn(): boolean {
-    this.loggedIn = (this.af.auth) ? true : false;
-    return this.loggedIn;
-  }
+    isLoggedIn(): Observable<any> {
+      // return observable to be notified of status updates (login/logout)
+      return this.loggedIn.asObservable();
+    }
+
 }
