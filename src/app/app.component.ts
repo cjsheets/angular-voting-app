@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
+import { AuthService } from './auth/auth.service';
+import { Logger } from './shared/logger.service';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,17 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class AppComponent {
   title = 'app works!';
-  constructor(public af: AngularFire) {
-  }
+  constructor(
+    private _auth: AuthService,
+    private _log: Logger
+  ) {}
 
-  login() {
-    this.af.auth.login();
-  }
+  // login() {
+  //   this.af.auth.login();
+  // }
 
-  logout() {
-     this.af.auth.logout();
-  }
+  // logout() {
+  //    this.af.auth.logout();
+  // }
 
 }

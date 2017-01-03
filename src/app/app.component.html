@@ -4,6 +4,10 @@
   {{title}}
 </h1>
 
-  <div> {{ (af.auth | async)?.uid }} </div>
+  <!--<div> {{ (af.auth | async)?.uid }} </div>
   <button (click)="login()">Login</button>
-  <button (click)="logout()">Logout</button>
+  <button (click)="logout()">Logout</button>-->
+
+<b>Login Status: </b> {{ _auth?.isLoggedIn() ? "yes" : "no" }}
+
+  <template ngbModalContainer></template>
