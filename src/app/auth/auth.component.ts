@@ -19,15 +19,8 @@ export class AuthComponent implements OnInit {
     private _log: Logger
   ) {}
 
-  // login(provider = '{}') {
-  //   this._auth.login(provider);
-  // }
-
-  // logout() {
-  //   this._auth.logout();
-  // }
 
   ngOnInit(): void {
-    //this._log['log']( "AuthComponent Init: " + this._auth.isLoggedIn() );
+
   }
  }
