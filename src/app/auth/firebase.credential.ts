@@ -10,5 +10,5 @@ export const afConfig = {
 
 export const afAuthConfig = {
       provider: AuthProviders.Google,
-      method: AuthMethods.Popup
+      method: AuthMethods.Redirect
 };

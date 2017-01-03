@@ -20,8 +20,8 @@ export class AuthService {
     this.af.auth.subscribe((auth) => this._log['log']( "AuthService: " + auth ));
   }
 
-  login(): void {
-    this.af.auth.login().then((success) => {
+  login(provider = '{}'): void {
+        this.af.auth.login(provider).then((success) => {
        this.loggedIn.next( true );
     }).catch((err) => {
       this.loggedIn.next( false );

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { AuthService } from './auth/auth.service';
 import { Logger } from './shared/logger.service';
 
 import { Subject } from 'rxjs/Subject';
-
+import {FirebaseAuth} from 'angularfire2';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _auth: AuthService,
-    private _log: Logger
+    private _log: Logger,
+    @Inject(FirebaseAuth) public auth: FirebaseAuth
   ) {}
 
   // login() {

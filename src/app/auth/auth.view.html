@@ -1,3 +1,16 @@
 <div> {{ (af.auth | async)?.uid }} </div>
   <button (click)="login()">Login</button>
   <button (click)="logout()">Logout</button>
+
+<a class="btn-login btn btn-block btn-social btn-google">
+  <span class="zmdi zmdi-google"></span> Sign in with Google
+</a>
+<a class="btn-login btn btn-block btn-social btn-github">
+  <span class="zmdi zmdi-github"></span> Sign in with GitHub
+</a>
+<a class="btn-login btn btn-block btn-social btn-facebook">
+  <span class="zmdi zmdi-facebook"></span> Sign in with Facebook
+</a>
+<a class="btn-login btn btn-block btn-social btn-twitter">
+  <span class="zmdi zmdi-twitter"></span> Sign in with Twitter
+</a>

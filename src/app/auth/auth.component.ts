@@ -8,6 +8,7 @@ import { Logger } from '../shared/logger.service';
 @Component({
   selector: 'auth',
   templateUrl: './auth.view.html',
+  styleUrls: ['./auth.view.css']
 })
 
 export class AuthComponent implements OnInit {
@@ -18,14 +19,12 @@ export class AuthComponent implements OnInit {
     private _log: Logger
   ) {}
 
-  login() {
-    this._auth.login();
-    //this.af.auth.login();
+  login(provider = '{}') {
+    this._auth.login(provider);
   }
 
   logout() {
     this._auth.logout();
-     //this.af.auth.logout();
   }
 
   ngOnInit(): void {

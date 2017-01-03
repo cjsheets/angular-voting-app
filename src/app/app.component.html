@@ -9,8 +9,8 @@
   <button (click)="logout()">Logout</button>-->
 
 <b>Login Status: </b>
-<span *ngIf="loggedIn == true">yes</span>
-<span *ngIf="loggedIn != true">no</span>
+<span *ngIf="auth | async">yes</span>
+<span *ngIf="!(auth | async)">no</span>
 
 
   <template ngbModalContainer></template>
