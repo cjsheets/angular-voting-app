@@ -1,16 +1,12 @@
-<vote-nav></vote-nav>
-
-<h1>
-  {{title}}
-</h1>
-
-  <!--<div> {{ (af.auth | async)?.uid }} </div>
-  <button (click)="login()">Login</button>
-  <button (click)="logout()">Logout</button>-->
+<app-nav></app-nav>
 
 <b>Login Status: </b>
 <span *ngIf="_auth.af.auth | async">yes</span>
 <span *ngIf="!(_auth.af.auth | async)">no</span>
 
+<hr>
 
-  <template ngbModalContainer></template>
+<router-outlet></router-outlet>
+
+<!-- used by ng-bootstrap for Modals  -->
+<template ngbModalContainer></template>

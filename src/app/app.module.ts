@@ -4,19 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-
-import { VoteNavModule } from './vote-nav/vote-nav.module';
+import { AppNavModule } from './app-nav/app-nav.module';
+import { AppRoutingModule, routedComponents } from './routing.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     BrowserModule, FormsModule, HttpModule,
-    VoteNavModule,
-    NgbModule.forRoot()
+    AppNavModule,
+    NgbModule.forRoot(),
+    AppRoutingModule
   ],
   declarations: [
-    AppComponent
+    routedComponents
   ],
   providers: [],
   bootstrap: [AppComponent]

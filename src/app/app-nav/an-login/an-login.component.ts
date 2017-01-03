@@ -4,10 +4,10 @@ import { Logger } from '../../shared/logger.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'vn-login',
-  templateUrl: './vn-login.view.html',
+  selector: 'an-login',
+  templateUrl: './an-login.view.html',
 })
-export class VnLoginComponent { 
+export class AnLoginComponent { 
   closeResult: string;
 
   constructor(

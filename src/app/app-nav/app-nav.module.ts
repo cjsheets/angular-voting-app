@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { AuthModule } from '../auth/auth.module';
 
-import { VoteNavComponent } from './vote-nav.component';
-import { VnLoginComponent } from './vn-login/vn-login.component';
+import { AppNavComponent } from './app-nav.component';
+import { AnLoginComponent } from './an-login/an-login.component';
 
 @NgModule({
   imports: [
@@ -12,12 +12,12 @@ import { VnLoginComponent } from './vn-login/vn-login.component';
     AuthModule
   ],
   declarations: [
-    VoteNavComponent,
-    VnLoginComponent
+    AppNavComponent,
+    AnLoginComponent
   ],
   exports: [
-    VoteNavComponent
+    AppNavComponent
   ]
 })
-export class VoteNavModule { }
+export class AppNavModule { }
 
