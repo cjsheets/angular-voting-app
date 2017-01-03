@@ -1,6 +1,9 @@
 a.btn-login,a.btn-login:hover{
   width: 300px;
   color: #FFFFFF;
+}a.btn-logout,a.btn-logout:hover{
+  width: 300px;
+  color: #333333;
 }
 
 /*
