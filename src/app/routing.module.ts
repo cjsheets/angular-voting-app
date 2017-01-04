@@ -12,7 +12,6 @@ export const routedComponents = [
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
-  { path: 'poll', loadChildren: 'public-polls/public-polls.module#PublicPollsModule' },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

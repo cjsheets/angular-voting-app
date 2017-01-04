@@ -4,9 +4,25 @@
 <span *ngIf="_auth.af.auth | async">yes</span>
 <span *ngIf="!(_auth.af.auth | async)">no</span>
 
+ &nbsp; &nbsp; - &nbsp; &nbsp;
+
+ <a [routerLink]="['']">/</a>,
+ <a [routerLink]="['polls']">/polls</a>,
+ <a [routerLink]="['vote']">/vote</a>,
+ <a [routerLink]="['my-polls']">/my-polls</a>,
+ <a [routerLink]="['edit']">/edit</a>,
+
 <hr>
 
 <router-outlet></router-outlet>
 
 <!-- used by ng-bootstrap for Modals  -->
 <template ngbModalContainer></template>
+
+<hr>
+
+<ul>
+  <li *ngFor="let item of items | async">
+      {{ item | json }}
+  </li>
+</ul>
