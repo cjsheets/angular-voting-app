@@ -6,6 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./pp-grid.view.css'],
 })
 export class PublicPollsGridComponent { 
-
-
+   bricks = [
+     {title: 'Brick 1'},
+     {title: 'Brick 2'},
+     {title: 'Brick 3'},
+     {title: 'Brick 4'},
+     {title: 'Brick 5'},
+     {title: 'Brick 6'}
+   ]
 }
