@@ -1,0 +1,25 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      New Poll
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <textarea rows="2" id="textArea">This is the poll question</textarea>
+      <ul>
+        <li><input id="focusedInput1" type="text" value="Option 1"> <a href="#">x</a></li>
+        <li><input id="focusedInput2" type="text" value="Option 2"> <a href="#">x</a></li>
+        <li><input id="focusedInput3" type="text" value="Option 3"> <a href="#">x</a></li>
+        <li><a href="#">+</a></li>
+      </ul>
+
+      <button class="btn btn-md btn-outline-primary" [routerLink]="['../my-polls']">Cancel</button>
+      <button class="btn btn-md btn-outline-primary">Create</button>
+    </div>
+    <div class="col-sm-4">
+      pie chart
+    </div>
+  </div>
+</div>
