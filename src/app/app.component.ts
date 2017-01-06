@@ -13,7 +13,6 @@ import {Observable} from 'rxjs/Observable';
   styleUrls: ['./app.view.css']
 })
 export class AppComponent implements OnInit {
-  items: FirebaseListObservable<any>;
 
   constructor(
     private af: AngularFire,
@@ -23,7 +22,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.items = this.af.database.list('/voteApp/polls');
+    
   }
     
 

@@ -3,6 +3,8 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import { Logger } from '../../shared/logger.service';
 
+import { PublicPollsService } from '../public-polls.service';
+
 @Component({
   selector: 'pp-grid',
   templateUrl: './pp-grid.view.html',
@@ -14,13 +16,15 @@ export class PublicPollsGridComponent implements OnInit {
 
   constructor(
     private af: AngularFire,
-    private _log: Logger
+    private _log: Logger,
+    private _ppS: PublicPollsService
   ) {}
 
 
   ngOnInit(): void {
     this.fbPolls = this.af.database.list('/voteApp/polls', {query: {limitToLast: 20}});
     this.setupPolls();
+    this._ppS.useService();
   }
 
   setupPolls(): void {
@@ -29,13 +33,8 @@ export class PublicPollsGridComponent implements OnInit {
       polls.forEach(poll => this.bricks.push(poll));
     });
   }
-    // this.bricks = [
-    //   {title: 'Brick 1'},
-    //   {title: 'Brick 2'},
-    //   {title: 'Brick 3'},
-    //   {title: 'Brick 4'},
-    //   {title: 'Brick 5'},
-    //   {title: 'Brick 6'}
-    // ]
 
+  vote() {
+    
+  }
 }

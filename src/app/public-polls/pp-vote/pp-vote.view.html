@@ -1,14 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Question</h3>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-sm-6">
 
-Public polls vote
+      <button type='button' class="btn btn-sm btn-outline-primary" 
+      (click)='vote()'>Option 1</button>
 
+      <br>
+      <br>
 
+      <button type='button' class="btn btn-sm btn-outline-primary" 
+      (click)='vote()'>Option 2</button>
 
-<div style="display: block">
-  <canvas baseChart
-              [data]="doughnutChartData"
-              [labels]="doughnutChartLabels"
-              [chartType]="doughnutChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+      <br>
+      <br>
+
+      <button type='button' class="btn btn-sm btn-outline-primary" 
+      (click)='vote()'>Option 3</button>
+
+    </div>
+
+    <div class="col-sm-6">
+      <div style="display: block">
+        <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+    </div>
+
+  </div>
 </div>
-
