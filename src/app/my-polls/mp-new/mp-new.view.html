@@ -25,10 +25,10 @@
               <input type="text" class="form-inline form-control" formControlName="option" placeholder="Option">
               <!-- Enable Remove button when more than 2 options exist -->
               <span *ngIf="newPollForm.controls.options.controls.length > 2">
-                <button class="btn btn-sm btn-danger" (click)="removeOption(i)">-</button>
+                <button type='button' class="btn btn-sm btn-danger" (click)="removeOption(i)">-</button>
               </span>
               <span *ngIf="newPollForm.controls.options.controls.length <= 2">
-                <button class="btn btn-sm btn-secondary disabled">-</button>
+                <button type='button' class="btn btn-sm btn-secondary disabled">-</button>
               </span>
               <!-- Invalid option error message -->
               <small class="text-danger" 
@@ -42,12 +42,12 @@
 
         <br>
         <div class="margin-20">
-          <button class="btn btn-sm btn-primary" (click)='addOption()'>+ Add Option</button>
+          <button type='button' class="btn btn-sm btn-primary" (click)='addOption()'>+ Add Option</button>
         </div>
 
         <br>
-        <button class="btn btn-md btn-outline-secondary" [routerLink]="['../my-polls']">Cancel</button>
-        <button class="btn btn-md btn-outline-success" type="submit" [disabled]="!newPollForm.valid">Create</button>
+        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['../my-polls']">Cancel</button>
+        <button type='button' class="btn btn-md btn-outline-success" type="submit" [disabled]="!newPollForm.valid">Create</button>
         <div class="margin-20">
           <div>newPollForm details:-</div>
           <pre>Is myForm valid?: <br>{{newPollForm.valid | json}}</pre>
@@ -79,4 +79,4 @@
 
 <br>
 <br>
-<button class="btn btn-md btn-outline-secondary" (click)='logFormState()'>Log Form State</button>
+<button type='button' class="btn btn-md btn-outline-secondary" (click)='logFormState()'>Log Form State</button>

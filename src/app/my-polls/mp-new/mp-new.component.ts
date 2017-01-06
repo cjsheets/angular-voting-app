@@ -13,12 +13,14 @@ import { Poll } from '../../shared/interface/poll.interface';
   styleUrls: ['./mp-new.view.css'],
 })
 export class MyPollsNewComponent implements OnInit { 
-  private items: FirebaseListObservable<any>;
+  private fbPolls: FirebaseListObservable<any>;
+  private fbResults: FirebaseListObservable<any>;
   public newPollForm: FormGroup;
 
   //poll = new Poll( this._auth.getUID(), [], '', []);
 
   constructor(
+    private af: AngularFire,
     private _fb: FormBuilder,
     private _auth: AuthService,
     private _log: Logger
@@ -26,8 +28,9 @@ export class MyPollsNewComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //this.items = this.af.database.list('/voteApp/polls');
-    //this.items.push({owner: 'me'});
+    this.fbPolls = this.af.database.list('/voteApp/polls', {query: {limitToLast: 1}});
+    this.fbResults = this.af.database.list('/voteApp/results', {query: {limitToLast: 1}});
+    //this.fbPolls = this.af.database.list('/voteApp/polls');
       this.newPollForm = this._fb.group({
         question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
         options: this._fb.array([
@@ -59,8 +62,23 @@ export class MyPollsNewComponent implements OnInit {
     control.removeAt(i);
   }
 
-  save(model: Poll) {
-    this._log['log']( model );
+  save(model) {
+    let polls = {
+      owner: this._auth.getUID(),
+      question: model.controls.question.value
+    }
+    let options = {};
+    for (let formGroup of model.controls.options.controls) {
+      options[formGroup.value.option] = 0;
+    }
+    let promise = this.fbPolls.push(polls);
+    promise.then( res => {
+      //this._log['log']( res );
+      let results = {poll: res.key, options: options, voter: []};
+      this.fbResults.push(results);
+      //this._log['log']( results );
+    });
+    
   }
 
 
@@ -71,11 +89,11 @@ export class MyPollsNewComponent implements OnInit {
 
   // events
   public chartClicked(e:any):void {
-    console.log(e);
+    //console.log(e);
   }
 
   public chartHovered(e:any):void {
-    console.log(e);
+    //console.log(e);
   }
 
 }
