@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, AuthProviders } from 'angularfire2';
+import { AngularFire,
+  FirebaseListObservable,
+  FirebaseAuthState,
+  AuthProviders } from 'angularfire2';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -11,12 +14,13 @@ export class AuthService {
 
   // store the URL so we can redirect after logging in
   redirectUrl: string;
+  authState: FirebaseAuthState;
 
   constructor(
     private af: AngularFire,
     private _log: Logger
   ) {
-    this.af.auth.subscribe((auth) => this._log['log']( "AuthService: " + auth ));
+    this.af.auth.subscribe(auth => this.authState = auth);
   }
 
   login(provider = ''): void {
@@ -39,6 +43,15 @@ export class AuthService {
 
   logout(): void {
     this.af.auth.logout();
+  }
+
+  getUID(): string {
+    return this.authState.uid;
+  }
+
+  logAuthState(): void {
+    this._log['log']( 'Authorization State (auth.service): ' );
+    this._log['log']( this.authState );
   }
 
 }

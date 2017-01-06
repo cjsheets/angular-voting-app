@@ -6,20 +6,64 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-8">
-      <textarea rows="2" id="textArea">This is the poll question</textarea>
-      <ul>
-        <li><input id="focusedInput1" type="text" value="Option 1"> <a href="#">x</a></li>
-        <li><input id="focusedInput2" type="text" value="Option 2"> <a href="#">x</a></li>
-        <li><input id="focusedInput3" type="text" value="Option 3"> <a href="#">x</a></li>
-        <li><a href="#">+</a></li>
-      </ul>
+    <div class="col-sm-6">
+      <form [formGroup]="newPollForm" novalidate (ngSubmit)="save(newPollForm)">
 
-      <button class="btn btn-md btn-outline-primary" [routerLink]="['../my-polls']">Cancel</button>
-      <button class="btn btn-md btn-outline-primary">Create</button>
+        <div class="form-group">
+          <textarea rows="2" class="form-control" formControlName="question" placeholder="Question"></textarea>
+          <small *ngIf="!newPollForm.controls.question.valid" class="text-danger">
+              Question is required (minimum 10 characters).
+          </small>
+        </div>
+
+        <div formArrayName="options">
+          <div *ngFor="let option of newPollForm.controls.options.controls; let i=index">
+            <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+            <div [formGroupName]="i">
+              <input type="text" class="form-control form-inline" formControlName="option">
+              <input type="hidden" formControlName="votes">
+              <!-- Enable Remove button when more than 2 options exist -->
+              <span *ngIf="newPollForm.controls.options.controls.length > 2" (click)="removeOption(i)">
+                <button class="btn btn-sm btn-danger" type="submit">-</button>
+              </span>
+              <span *ngIf="newPollForm.controls.options.controls.length <= 2" (click)="removeOption(i)">
+                <button class="btn btn-sm btn-danger disabled" type="submit">-</button>
+              </span>
+            </div>
+            <!-- Invalid option error message -->
+            <small class="text-danger" 
+              [hidden]="newPollForm.controls.options.controls[i].controls.option.valid">
+              Option is not valid
+            </small>
+          </div>
+        </div>
+
+        <br>
+        <div class="margin-20">
+          <button class="btn btn-sm btn-primary" (click)='addOption()'>+ Add Option</button>
+        </div>
+
+        <button class="btn btn-md btn-outline-secondary" [routerLink]="['../my-polls']">Cancel</button>
+        <button class="btn btn-md btn-outline-success" type="submit" [disabled]="!newPollForm.valid">Create</button>
+        <div class="margin-20">
+          <div>newPollForm details:-</div>
+          <pre>Is myForm valid?: <br>{{newPollForm.valid | json}}</pre>
+          <pre>form value: <br>{{newPollForm.value | json}}</pre>
+        </div>
+      </form>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
       pie chart
     </div>
   </div>
 </div>
+
+
+      <!--<div class="form-group form-inline" *ngFor="let option of poll.options; let i = index">
+        <input type="text" class="form-control" id="name" placeholder="Option" required>
+      </div>-->
+
+
+<br>
+<br>
+<button class="btn btn-md btn-outline-secondary" (click)='logFormState()'>Log Form State</button>

@@ -1,0 +1,31 @@
+{
+  "voteApp" : {
+    "polls" : {
+      "thisIsAPollsID" : {
+        "owner" : "someuserid1",
+        "question" : "This is the question"
+      }
+    },
+    "results" : {
+      "thisIsAPollsID" : {
+        "voter" : {
+          "someuserid1" : true,
+          "someuserid2" : true
+        },
+        "options" : {
+          "option 1" : 0,
+          "option 2" : 0,
+          "option 3" : 0
+        }
+      }
+    },
+    "users" : {
+      "thisIsAUserID" : {
+        "name" : "Chad",
+        "polls": {
+          "thisIsAPollsID" : true
+        }
+      }
+    }
+  }
+}

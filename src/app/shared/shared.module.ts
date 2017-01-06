@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler }  from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,6 +16,7 @@ import { RavenErrorHandler } from './sentry-io.service';
   exports : [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   providers: [ 
