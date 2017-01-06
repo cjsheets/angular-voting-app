@@ -29,7 +29,7 @@ export class MyPollsNewComponent implements OnInit {
     //this.items = this.af.database.list('/voteApp/polls');
     //this.items.push({owner: 'me'});
       this.newPollForm = this._fb.group({
-        question: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
+        question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
         options: this._fb.array([
           this.initOptions(),
           this.initOptions()
@@ -44,7 +44,7 @@ export class MyPollsNewComponent implements OnInit {
 
   initOptions() {
     return this._fb.group({
-      option: ['', Validators.required, Validators.minLength(1), Validators.maxLength(200)],
+      option: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
       votes: [0, Validators.required]
     });
   }
@@ -63,5 +63,19 @@ export class MyPollsNewComponent implements OnInit {
     this._log['log']( model );
   }
 
+
+  // Doughnut
+  public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartData:number[] = [1, 1, 1];
+  public doughnutChartType:string = 'doughnut';
+
+  // events
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+
+  public chartHovered(e:any):void {
+    console.log(e);
+  }
 
 }

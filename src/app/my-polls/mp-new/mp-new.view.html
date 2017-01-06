@@ -11,30 +11,32 @@
 
         <div class="form-group">
           <textarea rows="2" class="form-control" formControlName="question" placeholder="Question"></textarea>
-          <small *ngIf="!newPollForm.controls.question.valid" class="text-danger">
-              Question is required (minimum 10 characters).
+          <small class="text-danger" [hidden]="newPollForm.controls.question.valid
+             || (newPollForm.controls.question.pristine && !submitted)">
+              Question is required (minimum 6 characters).
           </small>
         </div>
 
         <div formArrayName="options">
           <div *ngFor="let option of newPollForm.controls.options.controls; let i=index">
             <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
-            <div [formGroupName]="i">
-              <input type="text" class="form-control form-inline" formControlName="option">
+            <div [formGroupName]="i" class="form-group">
               <input type="hidden" formControlName="votes">
+              <input type="text" class="form-inline form-control" formControlName="option" placeholder="Option">
               <!-- Enable Remove button when more than 2 options exist -->
-              <span *ngIf="newPollForm.controls.options.controls.length > 2" (click)="removeOption(i)">
-                <button class="btn btn-sm btn-danger" type="submit">-</button>
+              <span *ngIf="newPollForm.controls.options.controls.length > 2">
+                <button class="btn btn-sm btn-danger" (click)="removeOption(i)">-</button>
               </span>
-              <span *ngIf="newPollForm.controls.options.controls.length <= 2" (click)="removeOption(i)">
-                <button class="btn btn-sm btn-danger disabled" type="submit">-</button>
+              <span *ngIf="newPollForm.controls.options.controls.length <= 2">
+                <button class="btn btn-sm btn-secondary disabled">-</button>
               </span>
+              <!-- Invalid option error message -->
+              <small class="text-danger" 
+                [hidden]="newPollForm.controls.options.controls[i].controls.option.valid
+                || (newPollForm.controls.options.controls[i].controls.option.pristine && !submitted)">
+                Option is not valid
+              </small>
             </div>
-            <!-- Invalid option error message -->
-            <small class="text-danger" 
-              [hidden]="newPollForm.controls.options.controls[i].controls.option.valid">
-              Option is not valid
-            </small>
           </div>
         </div>
 
@@ -43,6 +45,7 @@
           <button class="btn btn-sm btn-primary" (click)='addOption()'>+ Add Option</button>
         </div>
 
+        <br>
         <button class="btn btn-md btn-outline-secondary" [routerLink]="['../my-polls']">Cancel</button>
         <button class="btn btn-md btn-outline-success" type="submit" [disabled]="!newPollForm.valid">Create</button>
         <div class="margin-20">
@@ -52,9 +55,19 @@
         </div>
       </form>
     </div>
+
     <div class="col-sm-6">
-      pie chart
+      <div style="display: block">
+        <canvas baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
     </div>
+
   </div>
 </div>
 
