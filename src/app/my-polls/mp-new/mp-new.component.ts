@@ -38,7 +38,7 @@ export class MyPollsNewComponent implements OnInit {
           this.initOptions()
         ])
       });
-    }
+  }
 
   logFormState(): void {
     this._log['log']( 'Form State (mp-new.component): ' );
