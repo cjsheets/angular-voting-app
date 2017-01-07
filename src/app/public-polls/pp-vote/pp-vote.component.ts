@@ -16,7 +16,7 @@ export class PublicPollsVoteComponent implements OnInit {
   private pID: string;
   private results$: FirebaseListObservable<any>;
   private results;
-  private options: string[];
+  private options;
 
   constructor(
     private _log: Logger,
@@ -44,8 +44,9 @@ export class PublicPollsVoteComponent implements OnInit {
   parseResults(){
     this.options = [];
     for(let option in this.results[0].options){
-      this.options.push(option);
+      this.options.push({option: option, votes: this.results[0].options[option]});
     }
+    this._log['log'](this.options);
   }
 
   // Doughnut
