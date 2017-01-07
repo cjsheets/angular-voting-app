@@ -83,17 +83,11 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
 
   submitForm(model) {
     this._log['log']( model );
-    for(let option of this.options){
-      if(model.controls.voteOption.value == option.i){
-        let newVoteTotal = {};
-        newVoteTotal[option.option] = option.votes + 1;
-        var results = {'options': newVoteTotal};
-        break;
-      }
-    }
-    this._log['log']( results );
-
-    // let promise = this.fbPolls.push(polls);
+    var newVoteTotal = {};
+    for(let o of this.options) newVoteTotal[o.option] = 
+      (model.controls.voteOption.value == o.i) ? o.votes + 1 : o.votes;
+    this._log['log']( {'options': newVoteTotal} );
+    let promise = this.results$.update({'options': newVoteTotal});
     // promise.then( res => {
     //   //this._log['log']( res );
     //   let results = {poll: res.key, options: options, voter: []};
