@@ -11,7 +11,7 @@
       <form [formGroup]="voteForm" novalidate (ngSubmit)="submitForm(voteForm)">
         <ul class="options">
           <li *ngFor="let option of options; let i = index">
-            <input type="radio" id="{{i}}" value="{{i}}" name="voteOption" formControlName="voteOption"  />
+            <input type="radio" id="{{i}}" value="{{option.i}}" name="voteOption" formControlName="voteOption"  />
             <label for="{{i}}" class="btn btn-sm btn-outline-primary">{{option.option}}</label>
           </li>
         </ul>

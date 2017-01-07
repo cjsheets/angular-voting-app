@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire,
+  FirebaseObjectObservable,
+  FirebaseListObservable } from 'angularfire2';
 
 import { Logger } from '../shared/logger.service';
 
@@ -14,12 +16,13 @@ export class PublicPollsService {
   ) {}
 
   getPolls(): FirebaseListObservable<any> {
+    this._log['log']('getPolls(), limit: 20');
     return this.af.database.list('/voteApp/polls', {query: {limitToLast: 20}});
   }
 
-  getResults(id): FirebaseListObservable<any> {
-    this._log['log'](id)
-    return this.af.database.list('/voteApp/results', {query: {orderByChild: 'poll', equalTo: id}});
+  getResults(id): FirebaseObjectObservable<any> {
+    this._log['log']('getResults(id): ' + id);
+    return this.af.database.object('/voteApp/results/' + id);
   }
 
   useService() {

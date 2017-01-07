@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseObjectObservable } from 'angularfire2';
 import { Subscription }   from 'rxjs/Subscription';
 
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   private pID: string;
-  private results$: FirebaseListObservable<any>;
+  private results$: FirebaseObjectObservable<any>;
   private results;
   private options;
   subscription: Subscription;
@@ -49,9 +49,11 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
 
   parseResults(){
     this.options = [];
-    for(let option in this.results[0].options){
-      this.options.push({option: option, votes: this.results[0].options[option]});
+    let i = 0; // <input type="radio"> return value
+    for(let option in this.results.options){
+      this.options.push({option: option, votes: this.results.options[option], i: i});
       this.updateChart();
+      i++;
     }
     this._log['log'](this.options);
   }
@@ -81,14 +83,16 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
 
   submitForm(model) {
     this._log['log']( model );
-    // let polls = {
-    //   owner: this._auth.getUID(),
-    //   question: model.controls.question.value
-    // }
-    // let options = {};
-    // for (let formGroup of model.controls.options.controls) {
-    //   options[formGroup.value.option] = 0;
-    // }
+    for(let option of this.options){
+      if(model.controls.voteOption.value == option.i){
+        let newVoteTotal = {};
+        newVoteTotal[option.option] = option.votes + 1;
+        var results = {'options': newVoteTotal};
+        break;
+      }
+    }
+    this._log['log']( results );
+
     // let promise = this.fbPolls.push(polls);
     // promise.then( res => {
     //   //this._log['log']( res );

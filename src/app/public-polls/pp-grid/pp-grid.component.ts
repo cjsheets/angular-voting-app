@@ -32,7 +32,7 @@ export class PublicPollsGridComponent implements OnInit {
       this._log['log'](polls)
       polls.forEach(poll => {
         // Base64 Encode for minor obscurification
-        poll.key = btoa(poll.$key);
+        poll.key = btoa(poll.results);
         this.bricks.push(poll)
       });
     });

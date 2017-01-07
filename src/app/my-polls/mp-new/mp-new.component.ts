@@ -63,23 +63,21 @@ export class MyPollsNewComponent implements OnInit {
   }
 
   save(model) {
-    let polls = {
-      owner: this._auth.getUID(),
-      question: model.controls.question.value
-    }
     let options = {};
-    for (let formGroup of model.controls.options.controls) {
-      options[formGroup.value.option] = 0;
-    }
-    let promise = this.fbPolls.push(polls);
+    for (let formGroup of model.controls.options.controls) options[formGroup.value.option] = 0;
+    let results = {options: options, question: model.controls.question.value};
+    let promise = this.fbResults.push(results);
     promise.then( res => {
       //this._log['log']( res );
-      let results = {poll: res.key, options: options, voter: []};
-      this.fbResults.push(results);
+      let polls = {
+        owner: this._auth.getUID(),
+        question: model.controls.question.value,
+        results: res.key
+      }
+      this.fbPolls.push(polls);
       //this._log['log']( results );
     });
   }
-
 
   // Doughnut
   public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
