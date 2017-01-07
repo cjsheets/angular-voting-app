@@ -5,6 +5,6 @@ Public polls grid
   <masonry-brick class="brick" *ngFor="let brick of bricks">
     {{brick.question}}
     <br><br>
-    <a [routerLink]="['/vote']">Vote</a>
+    <a [routerLink]="['/vote', brick.key]">Vote</a>
     </masonry-brick>
 </masonry>

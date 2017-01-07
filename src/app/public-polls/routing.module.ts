@@ -12,7 +12,7 @@ export const routedComponents = [
 
 const routes: Routes = [
   { path: 'polls', component: PublicPollsGridComponent },
-  { path: 'vote', component: PublicPollsVoteComponent }
+  { path: 'vote/:id', component: PublicPollsVoteComponent }
 ];
 
 @NgModule({
