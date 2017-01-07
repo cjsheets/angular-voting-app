@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseListObservable } from 'angularfire2';
+import { Subscription }   from 'rxjs/Subscription';
 
 import { Logger } from '../../shared/logger.service';
 import { PublicPollsService } from '../public-polls.service';
 
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'pp-vote',
   templateUrl: './pp-vote.view.html',
   styleUrls: ['./pp-vote.view.css'],
 })
-export class PublicPollsVoteComponent implements OnInit {
+export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   private pID: string;
   private results$: FirebaseListObservable<any>;
   private results;
   private options;
+  subscription: Subscription;
 
   constructor(
     private _log: Logger,
@@ -33,7 +34,7 @@ export class PublicPollsVoteComponent implements OnInit {
   }
 
   setupResults(): void {
-    this.results$.subscribe(results => {
+    this.subscription = this.results$.subscribe(results => {
       this._log['log'](results);
       this.results = results;
       this.parseResults();
@@ -61,6 +62,11 @@ export class PublicPollsVoteComponent implements OnInit {
 
   public chartHovered(e:any):void {
     //console.log(e);
+  }
+  
+  
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
