@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FirebaseListObservable } from 'angularfire2';
 
 import { Logger } from '../../shared/logger.service';
 import { PublicPollsService } from '../public-polls.service';
@@ -11,8 +12,11 @@ import 'rxjs/add/operator/switchMap';
   templateUrl: './pp-vote.view.html',
   styleUrls: ['./pp-vote.view.css'],
 })
-export class PublicPollsVoteComponent {
+export class PublicPollsVoteComponent implements OnInit {
   private pID: string;
+  private results$: FirebaseListObservable<any>;
+  private results;
+  private options: string[];
 
   constructor(
     private _log: Logger,
@@ -20,7 +24,28 @@ export class PublicPollsVoteComponent {
     private route: ActivatedRoute
   ) {
     route.params.subscribe(params => { this.pID = atob(params['id']); });
-    console.log(this.pID);
+  }
+
+
+  ngOnInit(): void {
+    this.results$ = this._ppS.getResults(this.pID);
+    this.setupResults();
+  }
+
+  setupResults(): void {
+    this.results$.subscribe(results => {
+      this._log['log'](results);
+      this.results = results;
+      this.parseResults();
+    });
+    this._log['log'](this.results);
+  }
+
+  parseResults(){
+    this.options = [];
+    for(let option in this.results[0].options){
+      this.options.push(option);
+    }
   }
 
   // Doughnut

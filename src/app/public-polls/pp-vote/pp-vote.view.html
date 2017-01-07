@@ -8,22 +8,11 @@
   <br>
   <div class="row">
     <div class="col-sm-6">
-
-      <button type='button' class="btn btn-sm btn-outline-primary" 
-      (click)='vote()'>Option 1</button>
-
-      <br>
-      <br>
-
-      <button type='button' class="btn btn-sm btn-outline-primary" 
-      (click)='vote()'>Option 2</button>
-
-      <br>
-      <br>
-
-      <button type='button' class="btn btn-sm btn-outline-primary" 
-      (click)='vote()'>Option 3</button>
-
+      <span *ngFor="let option of options">
+        <button type='button' class="btn btn-sm btn-outline-primary">Option 1</button>
+        <br>
+        <br>
+      </span>
     </div>
 
     <div class="col-sm-6">
