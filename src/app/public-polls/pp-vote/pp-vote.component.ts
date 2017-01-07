@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseObjectObservable } from 'angularfire2';
+import { AuthService } from '../../auth/auth.service';
 import { Subscription }   from 'rxjs/Subscription';
 
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
@@ -19,6 +20,9 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   private results$: FirebaseObjectObservable<any>;
   private results;
   private options;
+  private votes;
+  private question;
+  private alreadyVoted: string = '';
   subscription: Subscription;
   public voteForm: FormGroup;
 
@@ -30,6 +34,7 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   public doughnutChartOptions: any = {rotation: Math.random() * 6.28};
 
   constructor(
+    private _auth: AuthService,
     private _log: Logger,
     private _ppS: PublicPollsService,
     private _fb: FormBuilder,
@@ -49,12 +54,17 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
 
   parseResults(){
     this.options = [];
+    this.question = this.results.question;
+    this.votes = this.results.votes || {};
     let i = 0; // <input type="radio"> return value
+    if(this.votes[this._auth.getUID()]){
+      this.alreadyVoted = this.votes[this._auth.getUID()];
+    }
     for(let option in this.results.options){
       this.options.push({option: option, votes: this.results.options[option], i: i});
-      this.updateChart();
       i++;
     }
+    this.updateChart();
     this._log['log'](this.options);
   }
 
@@ -83,17 +93,17 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
 
   submitForm(model) {
     this._log['log']( model );
-    var newVoteTotal = {};
-    for(let o of this.options) newVoteTotal[o.option] = 
-      (model.controls.voteOption.value == o.i) ? o.votes + 1 : o.votes;
+    var newVoteTotal = {}, votedFor = '';
+    for(let o of this.options) if(model.controls.voteOption.value == o.i) {
+      newVoteTotal[o.option] = o.votes + 1;
+      votedFor = o.option;
+    } else {
+      newVoteTotal[o.option] = o.votes;
+    }
     this._log['log']( {'options': newVoteTotal} );
-    let promise = this.results$.update({'options': newVoteTotal});
-    // promise.then( res => {
-    //   //this._log['log']( res );
-    //   let results = {poll: res.key, options: options, voter: []};
-    //   this.fbResults.push(results);
-    //   //this._log['log']( results );
-    // });
+    let votes = this.votes;
+    votes[this._auth.getUID()] = votedFor;
+    let promise = this.results$.update({options: newVoteTotal, votes: votes});
   }
 
   ngOnInit(): void {

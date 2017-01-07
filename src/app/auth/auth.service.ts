@@ -46,6 +46,7 @@ export class AuthService {
   }
 
   getUID(): string {
+    this._log['log']( 'getUID():', this.authState );
     return this.authState.uid;
   }
 
