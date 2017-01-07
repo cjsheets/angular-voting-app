@@ -19,6 +19,13 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   private options;
   subscription: Subscription;
 
+  // Doughnut Chart
+  public doughnutChartEmpty: boolean = true;
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartData: number[] = [];
+  public doughnutChartType: string = 'doughnut';
+  public doughnutChartOptions: any = {rotation: Math.random() * 6.28};
+
   constructor(
     private _log: Logger,
     private _ppS: PublicPollsService,
@@ -26,7 +33,6 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   ) {
     route.params.subscribe(params => { this.pID = atob(params['id']); });
   }
-
 
   ngOnInit(): void {
     this.results$ = this._ppS.getResults(this.pID);
@@ -46,14 +52,24 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
     this.options = [];
     for(let option in this.results[0].options){
       this.options.push({option: option, votes: this.results[0].options[option]});
+      this.updateChart();
     }
     this._log['log'](this.options);
   }
 
-  // Doughnut
-  public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData:number[] = [350, 450, 100];
-  public doughnutChartType:string = 'doughnut';
+  updateChart(): void {
+    this.doughnutChartEmpty = true;
+    this.doughnutChartLabels = [];
+    this.doughnutChartData = [];
+    for(let object of this.options){
+      this.doughnutChartLabels.push(object.option);
+      this.doughnutChartData.push(object.votes);
+      if(object.votes > 0){
+        this.doughnutChartEmpty = false;
+      }
+    }
+  }
+
 
   // events
   public chartClicked(e:any):void {

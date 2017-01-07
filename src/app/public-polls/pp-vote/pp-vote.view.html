@@ -13,18 +13,27 @@
         <br>
         <br>
       </span>
+
+      <button type='button' class="btn btn-md btn-outline-success">Vote</button>
+
     </div>
 
     <div class="col-sm-6">
-      <div style="display: block">
+
+      <div style="display: block" *ngIf="! doughnutChartEmpty">
         <canvas baseChart
           [data]="doughnutChartData"
           [labels]="doughnutChartLabels"
           [chartType]="doughnutChartType"
+          [options]="doughnutChartOptions"
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)">
         </canvas>
       </div>
+      <div style="display: block" *ngIf="doughnutChartEmpty">
+        No Data
+      </div>
+
     </div>
 
   </div>
