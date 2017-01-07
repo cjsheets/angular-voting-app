@@ -8,14 +8,18 @@
   <br>
   <div class="row">
     <div class="col-sm-6">
-      <span *ngFor="let option of options">
-        <button type='button' class="btn btn-sm btn-outline-primary">{{option.option}}</button>
-        <br>
-        <br>
-      </span>
+      <form [formGroup]="voteForm" novalidate (ngSubmit)="submitForm(voteForm)">
+        <ul class="options">
+          <li *ngFor="let option of options; let i = index">
+            <input type="radio" id="{{i}}" value="{{i}}" name="voteOption" formControlName="voteOption"  />
+            <label for="{{i}}" class="btn btn-sm btn-outline-primary">{{option.option}}</label>
+          </li>
+        </ul>
 
-      <button type='button' class="btn btn-md btn-outline-success">Vote</button>
-
+        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['/polls']">Back</button>
+        <button type='submit' class="btn btn-md btn-outline-success"
+          [disabled]="!voteForm.valid">Vote</button>
+      </form>
     </div>
 
     <div class="col-sm-6">

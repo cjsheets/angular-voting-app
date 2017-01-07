@@ -31,13 +31,13 @@ export class MyPollsNewComponent implements OnInit {
     this.fbPolls = this.af.database.list('/voteApp/polls', {query: {limitToLast: 1}});
     this.fbResults = this.af.database.list('/voteApp/results', {query: {limitToLast: 1}});
     //this.fbPolls = this.af.database.list('/voteApp/polls');
-      this.newPollForm = this._fb.group({
-        question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
-        options: this._fb.array([
-          this.initOptions(),
-          this.initOptions()
-        ])
-      });
+    this.newPollForm = this._fb.group({
+      question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
+      options: this._fb.array([
+        this.initOptions(),
+        this.initOptions()
+      ])
+    });
   }
 
   logFormState(): void {
@@ -78,7 +78,6 @@ export class MyPollsNewComponent implements OnInit {
       this.fbResults.push(results);
       //this._log['log']( results );
     });
-    
   }
 
 

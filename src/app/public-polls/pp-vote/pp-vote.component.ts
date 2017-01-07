@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseListObservable } from 'angularfire2';
 import { Subscription }   from 'rxjs/Subscription';
 
+import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+
 import { Logger } from '../../shared/logger.service';
 import { PublicPollsService } from '../public-polls.service';
 
@@ -18,6 +20,7 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   private results;
   private options;
   subscription: Subscription;
+  public voteForm: FormGroup;
 
   // Doughnut Chart
   public doughnutChartEmpty: boolean = true;
@@ -29,14 +32,10 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   constructor(
     private _log: Logger,
     private _ppS: PublicPollsService,
+    private _fb: FormBuilder,
     private route: ActivatedRoute
   ) {
     route.params.subscribe(params => { this.pID = atob(params['id']); });
-  }
-
-  ngOnInit(): void {
-    this.results$ = this._ppS.getResults(this.pID);
-    this.setupResults();
   }
 
   setupResults(): void {
@@ -79,7 +78,33 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   public chartHovered(e:any):void {
     //console.log(e);
   }
-  
+
+  submitForm(model) {
+    this._log['log']( model );
+    // let polls = {
+    //   owner: this._auth.getUID(),
+    //   question: model.controls.question.value
+    // }
+    // let options = {};
+    // for (let formGroup of model.controls.options.controls) {
+    //   options[formGroup.value.option] = 0;
+    // }
+    // let promise = this.fbPolls.push(polls);
+    // promise.then( res => {
+    //   //this._log['log']( res );
+    //   let results = {poll: res.key, options: options, voter: []};
+    //   this.fbResults.push(results);
+    //   //this._log['log']( results );
+    // });
+  }
+
+  ngOnInit(): void {
+    this.results$ = this._ppS.getResults(this.pID);
+    this.setupResults();
+    this.voteForm = this._fb.group({
+      voteOption: ['', Validators.required]
+    });
+  }
   
   ngOnDestroy() {
     this.subscription.unsubscribe();

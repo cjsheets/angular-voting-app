@@ -1,3 +1,42 @@
-button {
-  width: 80%;
+.options {
+  list-style-type:none;
+  margin:25px 0 0 0;
+  padding:0;
+}
+
+.options li {
+  margin:0 5px 0 0;
+  width:80%;
+  height:40px;
+  position:relative;
+}
+
+.options label, .options input {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.options input[type="radio"] {
+  opacity:0.011;
+  z-index:100;
+}
+
+.options input[type="radio"]:checked + label {
+  background: #0275d8;
+  color: #FFFFFF;
+}
+
+.options label {
+  padding:5px;
+  cursor:pointer;
+  z-index:90;
+}
+
+.options label:hover {
+  background:#F1F1F1;
+  color: #0275d8;
 }
