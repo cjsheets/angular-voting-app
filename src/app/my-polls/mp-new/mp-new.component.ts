@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
@@ -6,16 +6,20 @@ import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
 import { Logger } from '../../shared/logger.service';
 import { Poll } from '../../shared/interface/poll.interface';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription }   from 'rxjs/Subscription';
 
 @Component({
   selector: 'mp-new',
   templateUrl: './mp-new.view.html',
   styleUrls: ['./mp-new.view.css'],
 })
-export class MyPollsNewComponent implements OnInit { 
+export class MyPollsNewComponent implements OnInit, OnDestroy { 
+  private pID: string;  // Poll ID
   private fbPolls: FirebaseListObservable<any>;
   private fbResults: FirebaseListObservable<any>;
   public newPollForm: FormGroup;
+  private subs: Subscription[] = [];
 
   //poll = new Poll( this._auth.getUID(), [], '', []);
 
@@ -23,8 +27,13 @@ export class MyPollsNewComponent implements OnInit {
     private af: AngularFire,
     private _fb: FormBuilder,
     private _auth: AuthService,
-    private _log: Logger
-  ) {}
+    private _log: Logger,
+    private route: ActivatedRoute
+  ) {
+    this.subs[this.subs.length] = route.params.subscribe(params => {
+      this.pID = atob(params['id']);
+    });
+  }
 
 
   ngOnInit(): void {
@@ -92,5 +101,8 @@ export class MyPollsNewComponent implements OnInit {
   public chartHovered(e:any):void {
     //console.log(e);
   }
-
+  
+  ngOnDestroy() {
+    for(let sub of this.subs) sub.unsubscribe();
+  }
 }

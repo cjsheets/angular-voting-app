@@ -23,7 +23,7 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   private votes;
   private question;
   private alreadyVoted: string = '';
-  subscription: Subscription;
+  private subs: Subscription[] = [];
   public voteForm: FormGroup;
 
   // Doughnut Chart
@@ -50,13 +50,9 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
       voteOption: ['', Validators.required]
     });
   }
-  
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
   setupResults(): void {
-    this.subscription = this.results$.subscribe(results => {
+    this.subs[this.subs.length] = this.results$.subscribe(results => {
       this._log['log'](results);
       this.results = results;
       this.parseResults();
@@ -116,5 +112,9 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
     let votes = this.votes;
     votes[this._auth.getUID()] = votedFor;
     let promise = this.results$.update({options: newVoteTotal, votes: votes});
+  }
+  
+  ngOnDestroy() {
+    for(let sub of this.subs) sub.unsubscribe();
   }
 }
