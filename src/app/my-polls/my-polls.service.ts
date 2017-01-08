@@ -6,7 +6,7 @@ import { AngularFire,
 import { Logger } from '../shared/logger.service';
 
 @Injectable()
-export class PublicPollsService {
+export class MyPollsService {
 
   constructor(
     private af: AngularFire,

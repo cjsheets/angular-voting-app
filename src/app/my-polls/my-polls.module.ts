@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthModule } from '../auth/auth.module';
 
 import { MyPollsRoutingModule, routedComponents } from './routing.module';
+import { MyPollsService } from './my-polls.service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,9 @@ import { MyPollsRoutingModule, routedComponents } from './routing.module';
   ],
   declarations: [
     routedComponents
+  ],
+  providers: [
+    MyPollsService
   ]
 })
 export class MyPollsModule { }
