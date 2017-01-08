@@ -14,7 +14,7 @@ import { MyPollsService } from '../my-polls.service';
 export class MyPollsGridComponent implements OnInit { 
   private myPolls$: FirebaseListObservable<any>;
   private bricks: Array<{}>;
-  private subscription: Subscription;
+  private subs: Subscription[] = [];
 
   constructor(
     private _log: Logger,
@@ -24,12 +24,16 @@ export class MyPollsGridComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.myPolls$ = this._mpS.getPolls(this._auth.getUID());
-    this.setupPolls();
+    this.subs[this.subs.length] = this._auth.af.auth.subscribe(auth => {
+      if(auth) {
+        this.myPolls$ = this._mpS.getPolls(this._auth.getUID());
+        this.setupPolls();
+      }
+    });
   }
 
   setupPolls(): void {
-    this.subscription = this.myPolls$.subscribe(polls => {
+    this.subs[this.subs.length] = this.myPolls$.subscribe(polls => {
       this.bricks = [];
       this._log['log'](polls)
       polls.forEach(poll => {
@@ -39,8 +43,12 @@ export class MyPollsGridComponent implements OnInit {
       });
     });
   }
+
+  deletePoll(id): void {
+      this._log['log']( 'delete this poll', id )
+  }
   
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    for(let sub of this.subs) sub.unsubscribe();
   }
 }

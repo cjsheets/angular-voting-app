@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import { Logger } from '../shared/logger.service';
+import { Router } from '@angular/router'
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,8 @@ export class AuthService {
 
   constructor(
     public af: AngularFire,
-    private _log: Logger
+    private _log: Logger,
+    private router: Router
   ) {
     this.af.auth.subscribe(auth => {
       this.authState = auth;
@@ -32,6 +34,7 @@ export class AuthService {
 
   logout(): void {
     this.af.auth.logout();
+    this.router.navigate(['']);
   }
 
   getUID(): string {

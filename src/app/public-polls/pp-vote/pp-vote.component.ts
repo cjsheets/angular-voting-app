@@ -43,6 +43,18 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
     route.params.subscribe(params => { this.pID = atob(params['id']); });
   }
 
+  ngOnInit(): void {
+    this.results$ = this._ppS.getResults(this.pID);
+    this.setupResults();
+    this.voteForm = this._fb.group({
+      voteOption: ['', Validators.required]
+    });
+  }
+  
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   setupResults(): void {
     this.subscription = this.results$.subscribe(results => {
       this._log['log'](results);
@@ -105,17 +117,4 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
     votes[this._auth.getUID()] = votedFor;
     let promise = this.results$.update({options: newVoteTotal, votes: votes});
   }
-
-  ngOnInit(): void {
-    this.results$ = this._ppS.getResults(this.pID);
-    this.setupResults();
-    this.voteForm = this._fb.group({
-      voteOption: ['', Validators.required]
-    });
-  }
-  
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
 }
