@@ -13,9 +13,11 @@ export class MyPollsService {
     private _log: Logger,
   ) {}
 
-  getPolls(): FirebaseListObservable<any> {
-    this._log['log']('getPolls(), limit: 20');
-    return this.af.database.list('/voteApp/polls', {query: {limitToLast: 20}});
+  getPolls(id): FirebaseListObservable<any> {
+    this._log['log']('getPolls(), limit: 20, UID: ', id);
+    return this.af.database.list('/voteApp/polls', {
+      query: {limitToLast: 20, orderByChild: 'owner', equalTo: id}
+    });
   }
 
   getResults(id): FirebaseObjectObservable<any> {

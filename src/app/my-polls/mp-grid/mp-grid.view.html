@@ -2,3 +2,13 @@
 My polls grid
 
 <button class="btn btn-md btn-outline-primary" [routerLink]="['../new']">New Poll</button>
+
+<br><br>
+
+<masonry>
+  <masonry-brick class="brick" *ngFor="let brick of bricks">
+    {{brick.question}}
+    <br><br>
+    <a [routerLink]="['/vote', brick.key]">Vote</a>
+    </masonry-brick>
+</masonry>

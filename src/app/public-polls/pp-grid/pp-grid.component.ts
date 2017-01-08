@@ -11,9 +11,9 @@ import { PublicPollsService } from '../public-polls.service';
   styleUrls: ['./pp-grid.view.css'],
 })
 export class PublicPollsGridComponent implements OnInit { 
-  private publicPolls: FirebaseListObservable<any>;
+  private publicPolls$: FirebaseListObservable<any>;
   private bricks: Array<{}>;
-  subscription: Subscription;
+  private subscription: Subscription;
 
   constructor(
     private _log: Logger,
@@ -22,12 +22,12 @@ export class PublicPollsGridComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.publicPolls = this._ppS.getPolls();
+    this.publicPolls$ = this._ppS.getPolls();
     this.setupPolls();
   }
 
   setupPolls(): void {
-    this.subscription = this.publicPolls.subscribe(polls => {
+    this.subscription = this.publicPolls$.subscribe(polls => {
       this.bricks = [];
       this._log['log'](polls)
       polls.forEach(poll => {
@@ -36,10 +36,6 @@ export class PublicPollsGridComponent implements OnInit {
         this.bricks.push(poll)
       });
     });
-  }
-
-  vote() {
-    
   }
   
   ngOnDestroy() {
