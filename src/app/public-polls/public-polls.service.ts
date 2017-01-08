@@ -5,8 +5,6 @@ import { AngularFire,
 
 import { Logger } from '../shared/logger.service';
 
-import { Subject }    from 'rxjs/Subject';
-
 @Injectable()
 export class PublicPollsService {
 

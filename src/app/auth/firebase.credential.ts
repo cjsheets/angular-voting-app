@@ -9,6 +9,6 @@ export const afConfig = {
 };
 
 export const afAuthConfig = {
-      provider: AuthProviders.Google,
-      method: AuthMethods.Redirect
+      provider: AuthProviders.Anonymous,
+      method: AuthMethods.Anonymous
 };

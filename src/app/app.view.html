@@ -1,8 +1,14 @@
 <app-nav></app-nav>
 
-<b>Login Status: </b>
+<b>Login: </b>
 <span *ngIf="_auth.af.auth | async">yes</span>
 <span *ngIf="!(_auth.af.auth | async)">no</span>
+
+<b>Anon: </b>
+<span *ngIf="(_auth.af.auth | async)?.anonymous">yes</span>
+<span *ngIf="!(_auth.af.auth | async)?.anonymous">no</span>
+
+
 
  &nbsp; &nbsp; - &nbsp; &nbsp;
 
@@ -12,6 +18,9 @@
  <a [routerLink]="['my-polls']">/my-polls</a>,
  <a [routerLink]="['edit']">/edit</a>,
  <a [routerLink]="['new']">/new</a>,
+
+ &nbsp; &nbsp; - &nbsp; &nbsp;
+<b>UID:</b> {{(_auth.af.auth | async)?.uid}}
 
 <hr>
 

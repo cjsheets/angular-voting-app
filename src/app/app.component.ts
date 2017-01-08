@@ -4,8 +4,6 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from './auth/auth.service';
 import { Logger } from './shared/logger.service';
 
-import { Subject } from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
