@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFire,
   FirebaseListObservable,
   FirebaseAuthState,
-  AuthProviders } from 'angularfire2';
+  AuthMethods, AuthProviders } from 'angularfire2';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -17,27 +17,24 @@ export class AuthService {
   authState: FirebaseAuthState;
 
   constructor(
-    private af: AngularFire,
+    public af: AngularFire,
     private _log: Logger
   ) {
-    this.af.auth.subscribe(auth => this.authState = auth);
+    this.af.auth.subscribe(auth => {
+      this._log['log']( 'af.auth.subscribe():', auth );
+      this.authState = auth
+      if(this.authState == null){
+        this.login();
+      }
+    });
   }
 
   login(provider = ''): void {
-    var authProvider = {};
-    switch (provider){
-      case 'Google': authProvider = {provider: AuthProviders.Google}; break;
-      case 'Github': authProvider = {provider: AuthProviders.Github}; break;
-      case 'Facebook': authProvider = {provider: AuthProviders.Facebook}; break;
-      case 'Twitter': authProvider = {provider: AuthProviders.Twitter}; break;
-    }
-    this._log['log']( "auth.service: login() - " + authProvider );
-    this.af.auth.login(authProvider).then((success) => {
-         
+    this._log['log']( 'login(): ', provider );
+    this.af.auth.login( this.getAuthProvider(provider)).then((success) => {
+      this._log['log']( "Logged In: ", success )
     }).catch((err) => {
-
-      this._log['log']( "Error Logging In:" )
-      this._log['warn']( err )
+      this._log['warn']( "Error Logging In: ", err )
     });
   }
 
@@ -50,9 +47,20 @@ export class AuthService {
     return this.authState.uid;
   }
 
-  logAuthState(): void {
-    this._log['log']( 'Authorization State (auth.service): ' );
-    this._log['log']( this.authState );
+  getAuthProvider(provider: string): {} {
+    var authProvider = {method: AuthMethods.Redirect};
+    switch (provider){
+      case 'Google': authProvider['provider'] = AuthProviders.Google; break;
+      case 'Github': authProvider['provider'] = AuthProviders.Github; break;
+      case 'Facebook': authProvider['provider'] = AuthProviders.Facebook; break;
+      case 'Twitter': authProvider['provider'] = AuthProviders.Twitter; break;
+      default: return '{}';
+    }
+    return authProvider;
+  }
+
+  getAuthState(): boolean {
+    return this.authState !== null;
   }
 
 }

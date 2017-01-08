@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Component } from '@angular/core';
 
 import { AuthService } from './auth.service';
-
-import { Logger } from '../shared/logger.service';
 
 @Component({
   selector: 'auth',
@@ -11,16 +8,8 @@ import { Logger } from '../shared/logger.service';
   styleUrls: ['./auth.view.css']
 })
 
-export class AuthComponent implements OnInit {
+export class AuthComponent {
  
-  constructor(
-    private af: AngularFire,
-    private _auth: AuthService,
-    private _log: Logger
-  ) {}
+  constructor(private _auth: AuthService){}
 
-
-  ngOnInit(): void {
-
-  }
- }
+}
