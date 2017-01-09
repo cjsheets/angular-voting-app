@@ -37,8 +37,10 @@ export class MyPollsGridComponent implements OnInit {
       this.bricks = [];
       this._log['log'](polls)
       polls.forEach(poll => {
+        //this._log['log']('poll: ', poll);
         // Base64 Encode for minor obscurification
-        poll.key = btoa(poll.results);
+        poll.pKey = btoa(poll.$key);
+        poll.rKey = btoa(poll.results);
         this.bricks.push(poll)
       });
     });

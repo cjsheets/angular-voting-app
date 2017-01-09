@@ -8,15 +8,21 @@ import { Logger, ConsoleLogService } from './logger.service';
 
 import { RavenErrorHandler } from './sentry-io.service';
 
+import { DisableFormControlDirective } from './disable-fc.directive';
+
 
 @NgModule({
   imports: [
     CommonModule
   ],
+  declarations : [
+    DisableFormControlDirective
+  ],
   exports : [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DisableFormControlDirective,
     NgbModule
   ],
   providers: [ 

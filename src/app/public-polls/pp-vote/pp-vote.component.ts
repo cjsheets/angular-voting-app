@@ -26,13 +26,6 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
   public voteForm: FormGroup;
 
-  // Doughnut Chart
-  public doughnutChartEmpty: boolean = true;
-  public doughnutChartLabels: string[] = [];
-  public doughnutChartData: number[] = [];
-  public doughnutChartType: string = 'doughnut';
-  public doughnutChartOptions: any = {rotation: Math.random() * 6.28};
-
   constructor(
     private _auth: AuthService,
     private _log: Logger,
@@ -40,7 +33,9 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private route: ActivatedRoute
   ) {
-    route.params.subscribe(params => { this.pID = atob(params['id']); });
+    this.subs[this.subs.length] = route.params.subscribe(params => { 
+      this.pID = atob(params['id']);
+    });
   }
 
   ngOnInit(): void {
@@ -89,6 +84,13 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  // Doughnut Chart
+  public doughnutChartEmpty: boolean = true;
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartData: number[] = [];
+  public doughnutChartType: string = 'doughnut';
+  public doughnutChartOptions: any = {rotation: Math.random() * 6.28};
 
   // events
   public chartClicked(e:any):void {

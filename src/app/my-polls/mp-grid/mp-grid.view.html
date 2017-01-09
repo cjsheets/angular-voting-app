@@ -9,8 +9,8 @@ My polls grid
   <masonry-brick class="brick" *ngFor="let brick of bricks">
     {{brick.question}}
     <br><br>
-    <a [routerLink]="['/edit', brick.key]">Edit</a>
+    <a [routerLink]="['/edit', brick.rKey, brick.pKey]">Edit</a>
     <a (click)="deletePoll(brick.key)">Delete</a>
-    <a [routerLink]="['/vote', brick.key]">Vote</a>
+    <a [routerLink]="['/vote', brick.rKey]">Vote</a>
     </masonry-brick>
 </masonry>

@@ -20,6 +20,11 @@ export class MyPollsService {
     });
   }
 
+  getPoll(id): FirebaseObjectObservable<any> {
+    this._log['log']('getPoll(id): ' + id);
+    return this.af.database.object('/voteApp/polls/' + id);
+  }
+
   getResults(id): FirebaseObjectObservable<any> {
     this._log['log']('getResults(id): ' + id);
     return this.af.database.object('/voteApp/results/' + id);
