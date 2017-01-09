@@ -17,6 +17,14 @@
           </small>
         </div>
 
+        <div *ngIf="currentRoute === 'edit'">
+          Static Opts
+          <div *ngFor="let option of staticOptions">
+              !!
+              <input type="text" class="form-inline form-control"  value="{{option}}" disabled>
+          </div>
+        </div>
+
         <div formArrayName="options">
           <div *ngFor="let option of newPollForm.controls.options.controls; let i=index">
             <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->

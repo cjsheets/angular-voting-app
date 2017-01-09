@@ -21,6 +21,7 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
   private currentRoute: string;
   private results$: FirebaseObjectObservable<any>;
   private resultData: any;
+  private staticOptions: string[] = [];
   public newPollForm: FormGroup;
   private subs: Subscription[] = [];
 
@@ -60,6 +61,7 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
         question: this.resultData.question
       })
       this.newPollForm.get('question').disable();
+      for(let option in this.resultData.options) this.staticOptions.push(option);
       this._log['log']( 'getPollData(): ', this.resultData );
     });
   }
