@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire,
+  FirebaseListObservable,
+  FirebaseObjectObservable } from 'angularfire2';
 
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
@@ -19,9 +21,12 @@ import { Subscription }   from 'rxjs/Subscription';
 export class MyPollsNewComponent implements OnInit, OnDestroy { 
   private id = {};  // {poll: .., result: ..}
   private currentRoute: string;
-  private results$: FirebaseObjectObservable<any>;
+  private pollList$: FirebaseListObservable<any>;
+  private resultList$: FirebaseListObservable<any>;
+  private result$: FirebaseObjectObservable<any>;
   private resultData: any;
   private staticOptions: string[] = [];
+  private minOptions: number = 2;
   public newPollForm: FormGroup;
   private subs: Subscription[] = [];
 
@@ -37,11 +42,13 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs[this.subs.length] = this.route.url.subscribe(url => {
       this.currentRoute = url[0].path;
+      this.buildForm();
       if(this.currentRoute == 'edit') {
         this.getUrlParams();
         this.getPollData();
+      } else {
+        this.addOption();
       }
-      this.buildForm();
     });    
   }
 
@@ -53,15 +60,29 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
     });
   }
 
+  getPollList(): void {
+    this.pollList$ = this.af.database.list('/voteApp/polls', {query: {limitToLast: 1}});
+    this.resultList$ = this.af.database.list('/voteApp/results', {query: {limitToLast: 1}});
+    //this.fbPolls = this.af.database.list('/voteApp/polls');
+    this.newPollForm = this._fb.group({
+      question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
+      options: this._fb.array([
+        this.initOptions(),
+        this.initOptions()
+      ])
+});
+  }
+
   getPollData(): void {
-    this.results$ = this._mpS.getResults(this.id['result']);
-    this.subs[this.subs.length] = this.results$.subscribe(results => {
+    this.result$ = this._mpS.getResults(this.id['result']);
+    this.subs[this.subs.length] = this.result$.subscribe(results => {
       this.resultData = results;
       this.newPollForm.patchValue({
         question: this.resultData.question
       })
       this.newPollForm.get('question').disable();
       for(let option in this.resultData.options) this.staticOptions.push(option);
+      this.minOptions = 1;
       this._log['log']( 'getPollData(): ', this.resultData );
     });
   }
@@ -70,7 +91,6 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
     this.newPollForm = this._fb.group({
       question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
       options: this._fb.array([
-        this.initOptions(),
         this.initOptions()
       ])
     });
@@ -94,20 +114,26 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
   }
 
   save(model) {
-    // let options = {};
-    // for (let formGroup of model.controls.options.controls) options[formGroup.value.option] = 0;
-    // let results = {options: options, question: model.controls.question.value};
-    // let promise = this.fbResults.push(results);
-    // promise.then( res => {
-    //   //this._log['log']( res );
-    //   let polls = {
-    //     owner: this._auth.getUID(),
-    //     question: model.controls.question.value,
-    //     results: res.key
-    //   }
-    //   this.fbPolls.push(polls);
-    //   //this._log['log']( results );
-    // });
+    let options = {}, results = {};
+    for (let formGroup of model.controls.options.controls) options[formGroup.value.option] = 0;
+    if(this.currentRoute == 'edit'){
+      let allOptions = Object.assign(options, this.resultData.options);
+      results = {options: allOptions, question: this.resultData.question};
+    } else {
+      results = {options: options, question: model.controls.question.value};
+      let promise = this.resultList$.push(results);
+      promise.then( res => {
+        //this._log['log']( res );
+        let polls = {
+          owner: this._auth.getUID(),
+          question: model.controls.question.value,
+          results: res.key
+        }
+        this.pollList$.push(polls);
+        //this._log['log']( results );
+      });
+    }
+    this._log['log']( options, results );
   }
 
   // Doughnut
