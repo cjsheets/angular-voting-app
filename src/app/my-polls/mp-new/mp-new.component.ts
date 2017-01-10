@@ -47,6 +47,7 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
         this.getUrlParams();
         this.getPollData();
       } else {
+        this.getPollList();
         this.addOption();
       }
     });    
@@ -63,14 +64,6 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
   getPollList(): void {
     this.pollList$ = this.af.database.list('/voteApp/polls', {query: {limitToLast: 1}});
     this.resultList$ = this.af.database.list('/voteApp/results', {query: {limitToLast: 1}});
-    //this.fbPolls = this.af.database.list('/voteApp/polls');
-    this.newPollForm = this._fb.group({
-      question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
-      options: this._fb.array([
-        this.initOptions(),
-        this.initOptions()
-      ])
-});
   }
 
   getPollData(): void {
@@ -119,11 +112,12 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
     if(this.currentRoute == 'edit'){
       let allOptions = Object.assign(options, this.resultData.options);
       results = {options: allOptions, question: this.resultData.question};
+      let promise = this.result$.update({options: allOptions});
     } else {
       results = {options: options, question: model.controls.question.value};
       let promise = this.resultList$.push(results);
       promise.then( res => {
-        //this._log['log']( res );
+        this._log['log']( res );
         let polls = {
           owner: this._auth.getUID(),
           question: model.controls.question.value,
