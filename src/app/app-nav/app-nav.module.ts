@@ -4,16 +4,17 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthModule } from '../auth/auth.module';
 
 import { AppNavComponent } from './app-nav.component';
-import { AnLoginComponent } from './an-login/an-login.component';
+
+import { AppNavRoutingModule, routedComponents } from './routing.module';
 
 @NgModule({
   imports: [
     SharedModule,
-    AuthModule
+    AuthModule,
+    AppNavRoutingModule
   ],
   declarations: [
-    AppNavComponent,
-    AnLoginComponent
+    routedComponents
   ],
   exports: [
     AppNavComponent

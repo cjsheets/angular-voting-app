@@ -1,6 +1,3 @@
-<div><b>UID:</b>  {{ (_auth.af.auth | async)?.uid }} </div>
-<div><b>Anonymous:</b>  {{ (_auth.af.auth | async)?.anonymous }} </div>
-
 <div *ngIf="!(_auth.af.auth | async) || (_auth.af.auth | async)?.anonymous">
   <a class="btn-login btn btn-block btn-social btn-google"
     (click)="_auth.login('Google')">

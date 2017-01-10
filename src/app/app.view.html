@@ -1,30 +1,34 @@
 <app-nav></app-nav>
 
-<b>Login: </b>
-<span *ngIf="_auth.af.auth | async">yes</span>
-<span *ngIf="!(_auth.af.auth | async)">no</span>
+<div class="container">
+  <div class="row">
+  <b>Login: </b>
+  <span *ngIf="_auth.af.auth | async">yes</span>
+  <span *ngIf="!(_auth.af.auth | async)">no</span>
 
-<b>Anon: </b>
-<span *ngIf="(_auth.af.auth | async)?.anonymous">yes</span>
-<span *ngIf="!(_auth.af.auth | async)?.anonymous">no</span>
+  <b>Anon: </b>
+  <span *ngIf="(_auth.af.auth | async)?.anonymous">yes</span>
+  <span *ngIf="!(_auth.af.auth | async)?.anonymous">no</span>
 
 
 
- &nbsp; &nbsp; - &nbsp; &nbsp;
+  &nbsp; &nbsp; - &nbsp; &nbsp;
 
- <a [routerLink]="['']">/</a>,
- <a [routerLink]="['polls']">/polls</a>,
- <a [routerLink]="['vote']">/vote</a>,
- <a [routerLink]="['my-polls']">/my-polls</a>,
- <a [routerLink]="['edit']">/edit</a>,
- <a [routerLink]="['new']">/new</a>,
+  <a [routerLink]="['']">/</a>,
+  <a [routerLink]="['polls']">/polls</a>,
+  <a [routerLink]="['vote']">/vote</a>,
+  <a [routerLink]="['my-polls']">/my-polls</a>,
+  <a [routerLink]="['edit']">/edit</a>,
+  <a [routerLink]="['new']">/new</a>,
 
- &nbsp; &nbsp; - &nbsp; &nbsp;
-<b>UID:</b> {{(_auth.af.auth | async)?.uid}}
+  &nbsp; &nbsp; - &nbsp; &nbsp;
+  <b>UID:</b> {{(_auth.af.auth | async)?.uid}}
 
-<hr>
+  <hr>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+  </div>
+</div>
 
 <!-- used by ng-bootstrap for Modals  -->
 <template ngbModalContainer></template>
