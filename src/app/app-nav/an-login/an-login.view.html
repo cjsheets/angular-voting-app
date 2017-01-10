@@ -1,20 +1,35 @@
+<span *ngIf="!(_auth.af.auth | async) || (_auth.af.auth | async)?.anonymous">
+  <li class="nav-item">
+    <a class="nav-link" (click)="open(content)">Login</a>
+  </li>
+</span>
+<span *ngIf="(_auth.af.auth | async) && ! (_auth.af.auth | async)?.anonymous">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" 
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Chad Sheets
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+      <a class="dropdown-item" href="" [routerLink]="['/my-polls']">My Polls</a>
+      <a class="dropdown-item" href="" (click)="_auth.logout()">Logout</a>
+    </div>
+  </li>
+</span>
+
 <template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
+    <h5 class="modal-title">Angular Voting - Login</h5>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title">Login</h4>
   </div>
   <div class="modal-body">
+    <p>Securely authenticate with your preffered provider</p>
     <auth>Loading...</auth>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    <button type="button" class="btn btn-md btn-outline-secondary" (click)="c('Close click')">Cancel</button>
   </div>
 </template>
 
-<button class="btn btn-md btn-outline-primary" (click)="open(content)">Login</button>
-
-<hr>
-
-<pre>{{closeResult}}</pre>
+<!-- Debugging: <hr><pre>{{closeResult}}</pre> -->

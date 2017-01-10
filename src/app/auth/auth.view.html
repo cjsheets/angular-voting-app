@@ -1,19 +1,22 @@
 <div *ngIf="!(_auth.af.auth | async) || (_auth.af.auth | async)?.anonymous">
-  <a class="btn-login btn btn-block btn-social btn-google"
+  <a class="btn-login btn btn-block btn-social btn-google m-auto"
     (click)="_auth.login('Google')">
-    <span class="zmdi zmdi-google"></span> Sign in with Google
+    <span class="zmdi zmdi-google"></span>Login with Google
   </a>
-  <a class="btn-login btn btn-block btn-social btn-github"
+  <div style="height: 10px"></div>
+  <a class="btn-login btn btn-block btn-social btn-github m-auto"
   (click)="_auth.login('Github')">
-    <span class="zmdi zmdi-github"></span> Sign in with GitHub
+    <span class="zmdi zmdi-github"></span>Login with GitHub
   </a>
-  <a class="btn-login btn btn-block btn-social btn-facebook"
+  <div style="height: 10px"></div>
+  <a class="btn-login btn btn-block btn-social btn-facebook m-auto"
   (click)="_auth.login('Facebook')">
-    <span class="zmdi zmdi-facebook"></span> Sign in with Facebook
+    <span class="zmdi zmdi-facebook"></span>Login with Facebook
   </a>
-  <a class="btn-login btn btn-block btn-social btn-twitter"
+  <div style="height: 10px"></div>
+  <a class="btn-login btn btn-block btn-social btn-twitter m-auto"
   (click)="_auth.login('Twitter')">
-    <span class="zmdi zmdi-twitter"></span> Sign in with Twitter
+    <span class="zmdi zmdi-twitter"></span>Login with Twitter
   </a>
 </div>
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth/auth.service';
 import { Logger } from '../../shared/logger.service';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -6,12 +7,14 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'an-login',
   templateUrl: './an-login.view.html',
+  styleUrls: ['./an-login.view.css'],
 })
 export class AnLoginComponent { 
   closeResult: string;
 
   constructor(
     private modalService: NgbModal,
+    private _auth: AuthService,
     private _log: Logger
   ) {}
 

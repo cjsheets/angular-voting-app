@@ -7,18 +7,23 @@
     aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" [routerLink]="['/']">Angular Voting</a>
+  <a class="navbar-brand navbar-left" href="" [routerLink]="['/']">Angular Voting</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
+  <div class="navbar-nav mr-auto">
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">      
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        test
-      </li>
-    </ul>
+  </div>
+  <ul class="nav navbar-nav navbar-right">
+    <li class="nav-item active">
+      <a class="nav-link" href="" [routerLink]="['/vote']">Vote</a>
+    </li>
+    <li class="nav-item">
+      <span class="nav-link">
+        &#8226;
+      </span>
+    </li>
+    <an-login></an-login>
+  </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
 
-<an-login></an-login>
+
