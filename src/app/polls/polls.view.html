@@ -2,26 +2,45 @@
   <div class="row row-blue">
   </div>
 </div>
+
 <div class="container">
-  <div class="row">
+
+  <div class="row" *ngIf="currentRoute === 'polls'">
     <div class="col-sm-12">
       <h3>Cast Your Vote!</h3>
     </div>
   </div>
+  <div class="row" *ngIf="currentRoute === 'my-polls'">
+    <div class="col-sm-6">
+      <h3>Manage Your Polls</h3>
+    </div>
+    <div class="col-sm-6 text-right">
+      <button class="btn btn-md btn-outline-primary" [routerLink]="['../new']">New Poll</button>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-sm">
-
       <masonry>
         <masonry-brick class="brick" *ngFor="let brick of bricks">
           <div class="brick-header">
             {{brick.question}}
           </div>
-          <div class="brick-footer" [routerLink]="['/vote', brick.key]">
+            <div class="brick-body" *ngIf="currentRoute === 'my-polls'">
+              <div>
+                <div class="brick-button" [routerLink]="['/edit', brick.rKey, brick.pKey]">
+                  Edit
+                </div>
+                <div class="brick-button" (click)="deletePoll(brick.key)">
+                  Delete
+                </div>
+              </div>
+            </div>
+          <div class="brick-footer" [routerLink]="['/vote', brick.rKey]">
             Vote
           </div>
           </masonry-brick>
       </masonry>
-
     </div>
   </div>
 </div>

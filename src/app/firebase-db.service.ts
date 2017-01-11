@@ -18,6 +18,18 @@ export class FirebaseDbService {
     return this.af.database.list('/voteApp/polls', {query: {limitToLast: 20}});
   }
 
+  getMyPolls(id): FirebaseListObservable<any> {
+    this._log['log']('getPolls(), limit: 20, UID: ', id);
+    return this.af.database.list('/voteApp/polls', {
+      query: {limitToLast: 20, orderByChild: 'owner', equalTo: id}
+    });
+  }
+
+  getPoll(id): FirebaseObjectObservable<any> {
+    this._log['log']('getPoll(id): ' + id);
+    return this.af.database.object('/voteApp/polls/' + id);
+  }
+
   getResults(id): FirebaseObjectObservable<any> {
     this._log['log']('getResults(id): ' + id);
     return this.af.database.object('/voteApp/results/' + id);

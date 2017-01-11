@@ -9,10 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
-import { AppNavModule } from './app-nav/app-nav.module';
-
-import { MyPollsModule } from './my-polls/my-polls.module';
-import { AuthModule } from './auth/auth.module';
+import { NavbarModule } from './navbar/navbar.module';
 import { FirebaseDbService } from './firebase-db.service';
 
 import { AppRoutingModule, routedComponents } from './routing.module';
@@ -21,10 +18,8 @@ import { AppRoutingModule, routedComponents } from './routing.module';
   imports: [
     BrowserModule, FormsModule, HttpModule,
     NgbModule.forRoot(),
-    AuthModule,
+    NavbarModule,
     SharedModule,
-    AppNavModule,
-    MyPollsModule,
     MasonryModule,
     ChartsModule,
     AppRoutingModule

@@ -1,13 +1,15 @@
 import { NgModule }             from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppNavComponent } from './app-nav.component';
-import { AnLoginComponent } from './an-login/an-login.component';
+import { NavbarComponent } from './navbar.component';
+import { LoginModalComponent } from './login-modal/login-modal.component';
+import { SocialAuthComponent } from './social-auth/social-auth.component';
 
 // Save space in the root module, export components here
 export const routedComponents = [
-  AppNavComponent,
-  AnLoginComponent
+  NavbarComponent,
+  LoginModalComponent,
+  SocialAuthComponent
 ];
 
 const routes: Routes = [
@@ -21,4 +23,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AppNavRoutingModule { }
+export class NavbarRoutingModule { }

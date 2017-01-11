@@ -1,24 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../navbar/auth.service';
 import { AngularFire,
   FirebaseListObservable,
   FirebaseObjectObservable } from 'angularfire2';
 
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
-import { DisableFormControlDirective } from '../../shared/disable-fc.directive';
-import { Logger } from '../../shared/logger.service';
-import { MyPollsService } from '../my-polls.service';
-import { Poll } from '../../shared/interface/poll.interface';
+import { DisableFormControlDirective } from '../shared/disable-fc.directive';
+import { Logger } from '../shared/logger.service';
+import { FirebaseDbService } from '../firebase-db.service';
+import { Poll } from '../shared/interface/poll.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription }   from 'rxjs/Subscription';
 
 @Component({
-  selector: 'mp-new',
-  templateUrl: './mp-new.view.html',
-  styleUrls: ['./mp-new.view.css'],
+  selector: 'admin',
+  templateUrl: './admin.view.html',
+  styleUrls: ['./admin.view.css'],
 })
-export class MyPollsNewComponent implements OnInit, OnDestroy { 
+export class AdminComponent implements OnInit, OnDestroy { 
   private id = {};  // {poll: .., result: ..}
   private currentRoute: string;
   private pollList$: FirebaseListObservable<any>;
@@ -35,7 +35,7 @@ export class MyPollsNewComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _auth: AuthService,
     private _log: Logger,
-    private _mpS: MyPollsService,
+    private _mpS: FirebaseDbService,
     private route: ActivatedRoute
   ) {}
 

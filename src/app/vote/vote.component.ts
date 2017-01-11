@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseObjectObservable } from 'angularfire2';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../navbar/auth.service';
 import { Subscription }   from 'rxjs/Subscription';
 
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';

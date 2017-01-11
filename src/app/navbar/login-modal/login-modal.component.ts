@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../auth.service';
 import { Logger } from '../../shared/logger.service';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'an-login',
-  templateUrl: './an-login.view.html',
-  styleUrls: ['./an-login.view.css'],
+  selector: 'login-modal',
+  templateUrl: './login-modal.view.html',
+  styleUrls: ['./login-modal.view.css'],
 })
-export class AnLoginComponent { 
+export class LoginModalComponent { 
   closeResult: string;
 
   constructor(

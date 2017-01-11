@@ -5,22 +5,29 @@ import { afConfig, afAuthConfig } from './firebase.credential';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { AuthComponent } from './auth.component';
+import { SocialAuthComponent } from './social-auth/social-auth.component';
 import { AuthService } from './auth.service';
+
+import { NavbarComponent } from './navbar.component';
+
+import { NavbarRoutingModule, routedComponents } from './routing.module';
 
 @NgModule({
   imports: [
     SharedModule,
+    NavbarRoutingModule,
     AngularFireModule.initializeApp(afConfig, afAuthConfig)
   ],
-  exports : [
-    AuthComponent
-  ],
   declarations: [
-    AuthComponent
+    routedComponents
+  ],
+  exports: [
+    SocialAuthComponent,
+    NavbarComponent
   ],
   providers: [ 
     AuthService
   ]
 })
-export class AuthModule { }
+export class NavbarModule { }
+
