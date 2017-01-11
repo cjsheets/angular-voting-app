@@ -2,3 +2,66 @@
   display: inline;
   width: 50%;
 }
+.options {
+  list-style-type:none;
+  margin:25px 0 0 0;
+  padding:0;
+}
+
+.options li {
+  margin:0 5px 0 0;
+  width:80%;
+  height:40px;
+  position:relative;
+}
+
+.options label, .options input {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.options input[type="radio"] {
+  opacity:0.011;
+  z-index:100;
+}
+
+.options input[type="radio"]:checked + label {
+  background: #0275d8;
+  color: #FFFFFF;
+}
+
+.options label {
+  padding:5px;
+  cursor:pointer;
+  z-index:90;
+}
+
+.options label:hover {
+  background:#F1F1F1;
+  color: #0275d8;
+}
+
+.container{
+  padding-bottom: 32px;
+}
+.row-blue {
+  background: #0092e2;
+  height: 3px;
+  margin-bottom: 20px;
+}
+
+.vertical-center {
+  padding-top: 50px;
+}
+.vertical-center form {
+  width: 75%;
+}
+
+.add-options {
+  margin-top: 4px;
+  margin-bottom: 10px;
+}

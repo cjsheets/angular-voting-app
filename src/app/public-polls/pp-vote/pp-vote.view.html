@@ -1,13 +1,18 @@
+<div class="container-fluid">
+  <div class="row row-blue">
+  </div>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
       <h3>{{question}}</h3>
     </div>
   </div>
-  <br>
-  <br>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6 vertical-center">
+      <p *ngIf="alreadyVoted">
+        You've already voted on this poll.
+      </p>
       <form [formGroup]="voteForm" novalidate (ngSubmit)="submitForm(voteForm)">
         <fieldset [disabled]="alreadyVoted">
           <ul class="options">
@@ -19,9 +24,9 @@
           </ul>
         </fieldset>
 
-        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['/polls']">Back</button>
+        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['/polls']"><i class="zmdi zmdi-arrow-left"></i></button>
         <button type='submit' class="btn btn-md btn-outline-success"
-          [disabled]="!voteForm.valid || alreadyVoted">Vote</button>
+          [disabled]="!voteForm.valid || alreadyVoted"><i class="zmdi zmdi-check"></i></button>
       </form>
     </div>
 
@@ -37,11 +42,10 @@
           (chartClick)="chartClicked($event)">
         </canvas>
       </div>
-      <div style="display: block" *ngIf="doughnutChartEmpty">
-        No Data
+      <div class="text-center empty-chart" *ngIf="doughnutChartEmpty">
+        <h4>No votes yet.</h4>
+        <h4>You can be the first!</h4>
       </div>
-
     </div>
-
   </div>
 </div>

@@ -40,3 +40,24 @@
   background:#F1F1F1;
   color: #0275d8;
 }
+
+.container{
+  padding-bottom: 32px;
+}
+.row-blue {
+  background: #0092e2;
+  height: 3px;
+  margin-bottom: 20px;
+}
+
+.vertical-center {
+  padding-top: 50px;
+}
+.vertical-center form {
+  width: 75%;
+}
+
+.empty-chart {
+  display: block;
+  padding-top: 30px;
+}

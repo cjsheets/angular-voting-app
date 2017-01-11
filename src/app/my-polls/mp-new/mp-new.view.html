@@ -1,12 +1,16 @@
-
+<div class="container-fluid">
+  <div class="row row-blue">
+  </div>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      New Poll
+      <span *ngIf="currentRoute === 'new'"><h3><i class="zmdi zmdi-plus"></i> Create A New Poll</h3></span>
+      <span *ngIf="currentRoute === 'edit'"><h3><i class="zmdi zmdi-floppy"></i> Add Poll Options</h3></span>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6 vertical-center">
       <form [formGroup]="newPollForm" novalidate (ngSubmit)="save(newPollForm)">
 
         <div class="form-group">
@@ -48,22 +52,15 @@
           </div>
         </div>
 
-        <br>
-        <div class="margin-20">
+        <div class="add-options text-right">
           <button type='button' class="btn btn-sm btn-primary" (click)='addOption()'>+ Add Option</button>
         </div>
 
-        <br>
-        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['/my-polls']">Cancel</button>
+        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['/my-polls']"><i class="zmdi zmdi-arrow-left"></i></button>
         <button type='button' class="btn btn-md btn-outline-success" type="submit" [disabled]="!newPollForm.valid">
-          <span *ngIf="currentRoute === 'new'">Create</span>
-          <span *ngIf="currentRoute === 'edit'">Save Options</span>
+          <span *ngIf="currentRoute === 'new'"><i class="zmdi zmdi-plus"></i></span>
+          <span *ngIf="currentRoute === 'edit'"><i class="zmdi zmdi-floppy"></i></span>
         </button>
-        <div class="margin-20">
-          <div>newPollForm details:-</div>
-          <pre>Is myForm valid?: <br>{{newPollForm.valid | json}}</pre>
-          <pre>form value: <br>{{newPollForm.value | json}}</pre>
-        </div>
       </form>
     </div>
 
@@ -77,17 +74,9 @@
           (chartClick)="chartClicked($event)">
         </canvas>
       </div>
+      <div style="display: block" *ngIf="doughnutChartEmpty">
+        No Data
+      </div>
     </div>
-
   </div>
 </div>
-
-
-      <!--<div class="form-group form-inline" *ngFor="let option of poll.options; let i = index">
-        <input type="text" class="form-control" id="name" placeholder="Option" required>
-      </div>-->
-
-
-<br>
-<br>
-<button type='button' class="btn btn-md btn-outline-secondary" (click)='logFormState()'>Log Form State</button>
