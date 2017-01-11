@@ -1,0 +1,40 @@
+h3 {
+  font-weight: 300;
+}
+.container {
+  padding-bottom: 32px;
+}
+.jumbotron-blue {
+  background: #0092e2;
+  color: #FFFFFF;
+  padding: 3rem 2rem
+}
+.jumbotron-gray {
+  background: #EFEFEF;
+  color: #333333;
+  padding: 3rem 2rem
+}
+.lead-heading {
+  font-size: 2.5rem
+}
+.col-sm i {
+  font-size: 6rem
+}
+.h3 {
+  font-size: 1.4rem
+}
+.zmdi-twitter {
+  color:#55acee;
+}
+.zmdi-fire {
+  color:#fda712;
+}
+.zmdi-code-setting {
+  color:#c3002f;
+}
+.zmdi-globe {
+  color:#94be72;
+}
+.zmdi-cloud-outline {
+  color:#acacac;
+}

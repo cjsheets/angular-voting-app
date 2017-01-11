@@ -1,2 +1,75 @@
+<div class="jumbotron jumbotron-fluid jumbotron-blue text-center">
+  <h1 class="display-4">Angular Voting</h1>
+  <p class="lead">Custom polls with live results.</p>
+  <button class="btn btn-lg btn-success">
+    Cast Your Vote
+  </button>
+</div>
 
-Welcome Component
+<div class="container">
+  <div class="row">
+    <div class="col-sm text-center">
+      <i class="zmdi zmdi-globe"></i>
+      <h3>Live Results</h3>
+      <p>See newly added polls and voting results in real time.</p>
+    </div>
+    <div class="col-sm text-center">
+      <i class="zmdi zmdi-cloud-outline"></i>
+      <h3>Latest Technologies</h3>
+      <p>Built for mobile-first. Angular voting leverages
+        the latest web technologies.
+      </p>
+    </div>
+    <div class="col-sm text-center">
+      <i class="zmdi zmdi-twitter"></i>
+      <h3>Social Integration</h3>
+      <p>Easy, secure authentication using your prefered network. Share
+        polls and results with your friends.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid jumbotron-gray text-center">
+  <p class="lead lead-heading">Create Custom Polls</p>
+  <button class="btn btn-lg btn-success"  (click)="open(content)">
+    Sign Up
+  </button> &nbsp; &nbsp;
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm text-center">
+      <i class="zmdi zmdi-code-setting"></i>
+      <h3>Angular 2</h3>
+      <p>Implemented using the Google-prefered high-performance Angular web framework</p>
+    </div>
+    <div class="col-sm text-center">
+      <i class="zmdi zmdi-fire"></i>
+      <h3>Firebase</h3>
+      <p>Powered by Googles high-performance IAAS solution.</p>
+    </div>
+    <div class="col-sm text-center">
+      <i class="zmdi zmdi-github-alt"></i>
+      <h3>Open Source</h3>
+      <p>Full source code available on <a href="https://github.com/cjsheets/FCC-Voting-App">GitHub</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">Angular Voting - Login</h5>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Securely authenticate with your preffered provider</p>
+    <auth>Loading...</auth>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-md btn-outline-secondary" (click)="c('Close click')">Cancel</button>
+  </div>
+</template>

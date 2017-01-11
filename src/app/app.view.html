@@ -1,34 +1,44 @@
 <app-nav></app-nav>
 
+<router-outlet></router-outlet>
+
+<!--  Debugging
 <div class="container">
   <div class="row">
-  <b>Login: </b>
-  <span *ngIf="_auth.af.auth | async">yes</span>
-  <span *ngIf="!(_auth.af.auth | async)">no</span>
+    <div class="col-sm">
+      <hr>
+      <b>Login: </b>
+      <span *ngIf="_auth.af.auth | async">yes</span>
+      <span *ngIf="!(_auth.af.auth | async)">no</span>
 
-  <b>Anon: </b>
-  <span *ngIf="(_auth.af.auth | async)?.anonymous">yes</span>
-  <span *ngIf="!(_auth.af.auth | async)?.anonymous">no</span>
+      <b>Anon: </b>
+      <span *ngIf="(_auth.af.auth | async)?.anonymous">yes</span>
+      <span *ngIf="!(_auth.af.auth | async)?.anonymous">no</span>
 
 
 
-  &nbsp; &nbsp; - &nbsp; &nbsp;
+      &nbsp; &nbsp; - &nbsp; &nbsp;
 
-  <a [routerLink]="['']">/</a>,
-  <a [routerLink]="['polls']">/polls</a>,
-  <a [routerLink]="['vote']">/vote</a>,
-  <a [routerLink]="['my-polls']">/my-polls</a>,
-  <a [routerLink]="['edit']">/edit</a>,
-  <a [routerLink]="['new']">/new</a>,
+      <a [routerLink]="['']">/</a>,
+      <a [routerLink]="['polls']">/polls</a>,
+      <a [routerLink]="['vote']">/vote</a>,
+      <a [routerLink]="['my-polls']">/my-polls</a>,
+      <a [routerLink]="['edit']">/edit</a>,
+      <a [routerLink]="['new']">/new</a>,
 
-  &nbsp; &nbsp; - &nbsp; &nbsp;
-  <b>UID:</b> {{(_auth.af.auth | async)?.uid}}
-
-  <hr>
-
-  <router-outlet></router-outlet>
+      &nbsp; &nbsp; - &nbsp; &nbsp;
+      <b>UID:</b> {{(_auth.af.auth | async)?.uid}}
+    </div>
   </div>
-</div>
+</div>-->
+
+<footer class="container">
+  <div class="row">
+    <div class="col-sm text-center">
+      <p>FreeCodeCamp | Author: <a href="https://github.com/cjsheets">Chad Sheets</a></p>
+    </div>
+  </div>
+</footer>
 
 <!-- used by ng-bootstrap for Modals  -->
 <template ngbModalContainer></template>

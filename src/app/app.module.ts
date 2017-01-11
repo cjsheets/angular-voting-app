@@ -10,6 +10,7 @@ import { AppNavModule } from './app-nav/app-nav.module';
 
 import { PublicPollsModule } from './public-polls/public-polls.module';
 import { MyPollsModule } from './my-polls/my-polls.module';
+import { AuthModule } from './auth/auth.module';
 
 import { AppRoutingModule, routedComponents } from './routing.module';
 
@@ -19,6 +20,7 @@ import { AppRoutingModule, routedComponents } from './routing.module';
     NgbModule.forRoot(),
     AppNavModule,
     PublicPollsModule,
+    AuthModule,
     MyPollsModule,
     AppRoutingModule
   ],
