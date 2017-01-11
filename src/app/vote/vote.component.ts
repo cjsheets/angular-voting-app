@@ -1,21 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseObjectObservable } from 'angularfire2';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Subscription }   from 'rxjs/Subscription';
 
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
-import { Logger } from '../../shared/logger.service';
-import { PublicPollsService } from '../public-polls.service';
+import { Logger } from '../shared/logger.service';
+import { FirebaseDbService } from '../firebase-db.service';
 
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'pp-vote',
-  templateUrl: './pp-vote.view.html',
-  styleUrls: ['./pp-vote.view.css'],
+  selector: 'vote',
+  templateUrl: './vote.view.html',
+  styleUrls: ['./vote.view.css'],
 })
-export class PublicPollsVoteComponent implements OnInit, OnDestroy {
+export class VoteComponent implements OnInit, OnDestroy {
   private pID: string;
   private results$: FirebaseObjectObservable<any>;
   private results;
@@ -29,7 +29,7 @@ export class PublicPollsVoteComponent implements OnInit, OnDestroy {
   constructor(
     private _auth: AuthService,
     private _log: Logger,
-    private _ppS: PublicPollsService,
+    private _ppS: FirebaseDbService,
     private _fb: FormBuilder,
     private route: ActivatedRoute
   ) {

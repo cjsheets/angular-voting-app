@@ -2,7 +2,7 @@
 
 <router-outlet></router-outlet>
 
-<!--  Debugging
+<!--  Debugging -->
 <div class="container">
   <div class="row">
     <div class="col-sm">
@@ -19,18 +19,18 @@
 
       &nbsp; &nbsp; - &nbsp; &nbsp;
 
-      <a [routerLink]="['']">/</a>,
-      <a [routerLink]="['polls']">/polls</a>,
-      <a [routerLink]="['vote']">/vote</a>,
-      <a [routerLink]="['my-polls']">/my-polls</a>,
-      <a [routerLink]="['edit']">/edit</a>,
-      <a [routerLink]="['new']">/new</a>,
+      <a [routerLink]="['/']">/</a>,
+      <a [routerLink]="['/polls']">/polls</a>,
+      <a [routerLink]="['/vote']">/vote</a>,
+      <a [routerLink]="['/my-polls']">/my-polls</a>,
+      <a [routerLink]="['/edit']">/edit</a>,
+      <a [routerLink]="['/new']">/new</a>,
 
       &nbsp; &nbsp; - &nbsp; &nbsp;
       <b>UID:</b> {{(_auth.af.auth | async)?.uid}}
     </div>
   </div>
-</div>-->
+</div>
 
 <footer class="container-fluid">
   <div class="row">

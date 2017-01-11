@@ -3,10 +3,10 @@ import { AngularFire,
   FirebaseObjectObservable,
   FirebaseListObservable } from 'angularfire2';
 
-import { Logger } from '../shared/logger.service';
+import { Logger } from './shared/logger.service';
 
 @Injectable()
-export class PublicPollsService {
+export class FirebaseDbService {
 
   constructor(
     private af: AngularFire,

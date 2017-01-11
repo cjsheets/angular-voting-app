@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { Logger } from './shared/logger.service';
-import { AuthService } from './auth/auth.service';
+import { Logger } from '../shared/logger.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'welcome',

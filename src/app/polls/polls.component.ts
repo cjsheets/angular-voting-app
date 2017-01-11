@@ -2,26 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseListObservable } from 'angularfire2';
 import { Subscription }   from 'rxjs/Subscription';
 
-import { Logger } from '../../shared/logger.service';
-import { PublicPollsService } from '../public-polls.service';
+import { Logger } from '../shared/logger.service';
+import { FirebaseDbService } from '../firebase-db.service';
 
 @Component({
-  selector: 'pp-grid',
-  templateUrl: './pp-grid.view.html',
-  styleUrls: ['./pp-grid.view.css'],
+  selector: 'polls',
+  templateUrl: './polls.view.html',
+  styleUrls: ['./polls.view.css'],
 })
-export class PublicPollsGridComponent implements OnInit { 
+export class PollsComponent implements OnInit { 
   private publicPolls$: FirebaseListObservable<any>;
   private bricks: Array<{}>;
   private subs: Subscription[] = [];
 
   constructor(
     private _log: Logger,
-    private _ppS: PublicPollsService
+    private _ppS: FirebaseDbService
   ) {}
 
 
   ngOnInit(): void {
+    this._log['log']('PollsComponent :: ngOnInit()')
     this.publicPolls$ = this._ppS.getPolls();
     this.setupPolls();
   }
