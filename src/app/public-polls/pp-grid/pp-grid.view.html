@@ -1,10 +1,22 @@
+<div class="container-fluid">
+  <div class="row row-blue">
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
 
-Public polls grid
+      <masonry>
+        <masonry-brick class="brick" *ngFor="let brick of bricks">
+          <div class="brick-header">
+            {{brick.question}}
+          </div>
+          <div class="brick-footer" [routerLink]="['/vote', brick.key]">
+            Vote
+          </div>
+          </masonry-brick>
+      </masonry>
 
-<masonry>
-  <masonry-brick class="brick" *ngFor="let brick of bricks">
-    {{brick.question}}
-    <br><br>
-    <a [routerLink]="['/vote', brick.key]">Vote</a>
-    </masonry-brick>
-</masonry>
+    </div>
+  </div>
+</div>
