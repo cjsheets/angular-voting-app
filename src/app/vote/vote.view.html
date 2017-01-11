@@ -31,18 +31,12 @@
     </div>
 
     <div class="col-sm-6">
-
-      <div style="display: block" *ngIf="! doughnutChartEmpty">
-        <canvas baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-          [options]="doughnutChartOptions"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)">
-        </canvas>
+      <div *ngIf="!chartEmpty">
+        <doughnut [doughnutChartLabels]="chartLabels" [doughnutChartData]="chartData">
+          <i class="zmdi zmdi-spinner zmdi-blue zmdi-hc-spin"></i>
+        </doughnut>
       </div>
-      <div class="text-center empty-chart" *ngIf="doughnutChartEmpty">
+      <div class="text-center empty-chart" *ngIf="chartEmpty">
         <h4>No votes yet.</h4>
         <h4>You can be the first!</h4>
       </div>

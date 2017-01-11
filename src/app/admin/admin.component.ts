@@ -6,9 +6,8 @@ import { AngularFire,
 
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
-import { DisableFormControlDirective } from '../shared/disable-fc.directive';
 import { Logger } from '../shared/logger.service';
-import { FirebaseDbService } from '../firebase-db.service';
+import { FirebaseDbService } from '../shared/firebase-db.service';
 import { Poll } from '../shared/interface/poll.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription }   from 'rxjs/Subscription';
@@ -29,6 +28,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   private minOptions: number = 2;
   public newPollForm: FormGroup;
   private subs: Subscription[] = [];
+  public chartEmpty: boolean = true;
+  public chartLabels: string[] = [];
+  public chartData: number[] = [];
 
   constructor(
     private af: AngularFire,
@@ -75,9 +77,20 @@ export class AdminComponent implements OnInit, OnDestroy {
       })
       this.newPollForm.get('question').disable();
       for(let option in this.resultData.options) this.staticOptions.push(option);
+      this.initChart();
       this.minOptions = 1;
       this._log['log']( 'getPollData(): ', this.resultData );
     });
+  }
+
+  initChart(): void {
+    this.chartEmpty = false;
+    this.chartLabels = [];
+    this.chartData = [];
+    for(let option of this.staticOptions){
+      this.chartLabels.push(option);
+      this.chartData.push(1);
+    }
   }
   
   buildForm() {

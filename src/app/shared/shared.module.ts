@@ -1,6 +1,9 @@
 import { NgModule, ErrorHandler }  from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { DoughnutComponent } from './doughnut/doughnut.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,22 +11,21 @@ import { Logger, ConsoleLogService } from './logger.service';
 
 import { RavenErrorHandler } from './sentry-io.service';
 
-import { DisableFormControlDirective } from './disable-fc.directive';
-
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ChartsModule
   ],
   declarations : [
-    DisableFormControlDirective
+    DoughnutComponent
   ],
   exports : [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DisableFormControlDirective,
-    NgbModule
+    NgbModule,
+    DoughnutComponent
   ],
   providers: [ 
     { provide: Logger, useClass: ConsoleLogService },

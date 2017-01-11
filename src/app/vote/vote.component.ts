@@ -6,7 +6,7 @@ import { Subscription }   from 'rxjs/Subscription';
 import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 
 import { Logger } from '../shared/logger.service';
-import { FirebaseDbService } from '../firebase-db.service';
+import { FirebaseDbService } from '../shared/firebase-db.service';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,6 +25,9 @@ export class VoteComponent implements OnInit, OnDestroy {
   private alreadyVoted: string = '';
   private subs: Subscription[] = [];
   public voteForm: FormGroup;
+  public chartEmpty: boolean = true;
+  public chartLabels: string[] = [];
+  public chartData: number[] = [];
 
   constructor(
     private _auth: AuthService,
@@ -72,33 +75,16 @@ export class VoteComponent implements OnInit, OnDestroy {
   }
 
   updateChart(): void {
-    this.doughnutChartEmpty = true;
-    this.doughnutChartLabels = [];
-    this.doughnutChartData = [];
+    this.chartEmpty = true;
+    this.chartLabels = [];
+    this.chartData = [];
     for(let object of this.options){
-      this.doughnutChartLabels.push(object.option);
-      this.doughnutChartData.push(object.votes);
+      this.chartLabels.push(object.option);
+      this.chartData.push(object.votes);
       if(object.votes > 0){
-        this.doughnutChartEmpty = false;
+        this.chartEmpty = false;
       }
     }
-  }
-
-
-  // Doughnut Chart
-  public doughnutChartEmpty: boolean = true;
-  public doughnutChartLabels: string[] = [];
-  public doughnutChartData: number[] = [];
-  public doughnutChartType: string = 'doughnut';
-  public doughnutChartOptions: any = {rotation: Math.random() * 6.28};
-
-  // events
-  public chartClicked(e:any):void {
-    //console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    //console.log(e);
   }
 
   submitForm(model) {

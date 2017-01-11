@@ -4,7 +4,7 @@ import { Subscription }   from 'rxjs/Subscription';
 import { AuthService } from '../navbar/auth.service';
 
 import { Logger } from '../shared/logger.service';
-import { FirebaseDbService } from '../firebase-db.service';
+import { FirebaseDbService } from '../shared/firebase-db.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
