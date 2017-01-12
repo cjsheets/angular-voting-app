@@ -34,10 +34,11 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 ## To-Do
 
 * Perform transactions when adding/removing polls
-* add user account to db
-* Signup button changes when logged in
-* redirect after save
 * change repo name
+* enforce no duplicate options, causes issues.
+  * http://almerosteyn.com/2016/03/angular2-form-validation-component
+
+* Improve transition effect when adding new poll
 
 
 ### Later..

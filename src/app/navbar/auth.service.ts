@@ -24,9 +24,8 @@ export class AuthService {
     this.af.auth.subscribe(auth => {
       this._log['log']( "Auth State Updated: ", auth )
       this.authState = auth;
-      if(!auth.anonymous) this.userObj$ = 
-        this._FireDb.getUser(this.authState.uid);
       if(!auth) this.login();
+      if(!auth.anonymous) this.userObj$ = this._FireDb.getUser(this.authState.uid);
     });
   }
 

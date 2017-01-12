@@ -9,7 +9,7 @@ import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Logger } from '../shared/logger.service';
 import { FirebaseDbService } from '../shared/firebase-db.service';
 import { Poll } from '../shared/interface/poll.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription }   from 'rxjs/Subscription';
 
 @Component({
@@ -40,6 +40,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private _log: Logger,
     private _FireDb: FirebaseDbService,
     private route: ActivatedRoute
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -161,6 +162,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.pollList$.push(polls);
       });
     }
+    this.router.navigate(['/my-polls']);
     //this._log['log']( 'save(): ', options, results );
   }
   

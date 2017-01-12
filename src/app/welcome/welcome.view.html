@@ -30,10 +30,16 @@
   </div>
 </div>
 
-<div class="jumbotron jumbotron-fluid jumbotron-gray text-center">
+<div class="jumbotron jumbotron-fluid jumbotron-gray text-center" *ngIf="!(_auth.af.auth | async) || (_auth.af.auth | async)?.anonymous">
   <p class="lead lead-heading">Create Custom Polls</p>
   <button class="btn btn-lg btn-success"  (click)="open(content)">
     Sign Up
+  </button> &nbsp; &nbsp;
+</div>
+<div class="jumbotron jumbotron-fluid jumbotron-gray text-center" *ngIf="(_auth.af.auth | async) && !(_auth.af.auth | async)?.anonymous">
+  <p class="lead lead-heading">Manage Your Polls</p>
+  <button class="btn btn-lg btn-success" [routerLink]="['/my-polls']">
+    My Polls
   </button> &nbsp; &nbsp;
 </div>
 

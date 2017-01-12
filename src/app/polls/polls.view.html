@@ -21,8 +21,8 @@
 
   <div class="row">
     <div class="col-sm" *ngIf="bricks.length > 0">
-      <masonry>
-        <masonry-brick class="brick" *ngFor="let brick of bricks">
+      <masonry [options]="{transitionDuration: '0.0000001s'}">
+        <masonry-brick class="brick" *ngFor="let brick of bricks; let i = index">
           <div class="brick-header">
             {{brick.question}}
           </div>
