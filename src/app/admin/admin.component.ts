@@ -39,7 +39,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private _auth: AuthService,
     private _log: Logger,
     private _FireDb: FirebaseDbService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 
