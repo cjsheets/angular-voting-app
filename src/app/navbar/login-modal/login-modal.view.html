@@ -7,10 +7,13 @@
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" 
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Chad Sheets
+      <img [src]="_auth.getUserPhoto()" class="user-image">
+      {{_auth.getUserName()}}
     </a>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-      <a class="dropdown-item" href="" [routerLink]="['/my-polls']">My Polls</a>
+      <a class="dropdown-item" href="" [routerLink]="['/new']">New Poll</a>
+      <a class="dropdown-item" href="" [routerLink]="['/my-polls']">Manage Polls</a>
+      <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="" (click)="_auth.logout()">Logout</a>
     </div>
   </li>

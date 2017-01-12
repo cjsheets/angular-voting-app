@@ -5,3 +5,11 @@
   border-top-right-radius: 0.3rem;
   border-top: 2px solid rgba(0, 0, 0, 0);
 }
+.user-image{
+  border-radius: 50%;
+  max-width: 28px;
+  max-height: 28px;
+  margin-right: 6px;
+  vertical-align: middle;
+  /*border: 1px solid #666666*/
+}

@@ -7,8 +7,7 @@ import { Logger } from './shared/logger.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.view.html',
-  styleUrls: ['./app.view.css']
+  templateUrl: './app.view.html'
 })
 export class AppComponent implements OnInit {
 

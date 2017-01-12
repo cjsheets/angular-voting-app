@@ -42,6 +42,16 @@ export class AuthService {
     return this.authState.uid;
   }
 
+  getUserName(): string {
+    //this._log['log']( 'getUserName():', this.authState.auth );
+    return this.authState.auth.displayName || '';
+
+  }
+
+  getUserPhoto(){
+    return this.authState.auth.photoURL || '';
+}
+
   getAuthProvider(provider: string): {} {
     var authProvider = {method: AuthMethods.Redirect};
     switch (provider){

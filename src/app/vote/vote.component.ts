@@ -12,8 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'vote',
-  templateUrl: './vote.view.html',
-  styleUrls: ['./vote.view.css'],
+  templateUrl: './vote.view.html'
 })
 export class VoteComponent implements OnInit, OnDestroy {
   private pID: string;

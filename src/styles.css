@@ -1,1 +1,166 @@
-/* You can add global styles to this file, and also import other style files */
+/* global styles */
+
+a:hover, button:hover {
+  cursor: pointer;
+}
+
+.row-blue {
+  background: #0092e2;
+  height: 3px;
+  margin-bottom: 20px;
+}
+.container {
+  padding-bottom: 32px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+footer {
+  border-top: 1px solid #EFEFEF;
+  color: #333333;
+  font-size: 0.9rem;
+  padding-top: 30px;
+}
+
+/* Admin Component */
+
+.form-inline {
+  display: inline;
+  width: 50%;
+}
+.options {
+  list-style-type:none;
+  margin:25px 0 0 0;
+  padding:0;
+}
+
+.options li {
+  margin:0 5px 0 0;
+  width:80%;
+  height:40px;
+  position:relative;
+}
+
+.options label, .options input {
+  display:block;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.options input[type="radio"] {
+  opacity:0.011;
+  z-index:100;
+}
+
+.options input[type="radio"]:checked + label {
+  background: #0275d8;
+  color: #FFFFFF;
+}
+
+.options label {
+  padding:5px;
+  cursor:pointer;
+  z-index:90;
+}
+
+.options label:hover {
+  background:#F1F1F1;
+  color: #0275d8;
+}
+
+.vertical-center {
+  padding-top: 50px;
+}
+.vertical-center form {
+  width: 75%;
+}
+
+.add-options {
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.empty-chart {
+  display: block;
+  padding-top: 30px;
+}
+
+
+/* Polls Component */
+
+.brick {
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  background-color: #F9F9F9;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.brick-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 15px 15px 30px 15px;
+  border-bottom: 1px solid #eceeef;
+  background: rgba(0, 146, 226, 0.1);
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+}
+.brick-body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0px;
+    background: #EEEEEE;
+}
+.brick-body div {
+    display: flex
+}
+.brick-button {
+  margin: auto;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 10px 0px;
+  border-radius: 0.3rem;
+}
+.brick-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: center;
+  padding: 10px 0px;
+  background: rgba(0, 146, 226, 1);
+  color: #FFFFFF;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+.brick-footer:hover {
+  background: rgba(0, 146, 226, 0.8);
+  cursor: pointer;
+}

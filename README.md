@@ -33,4 +33,10 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 
 ## To-Do
 
-Perform transactions when adding/removing polls
+* Perform transactions when adding/removing polls
+* Enhance db security
+* delete function
+* add user account to db
+* pointer when hovering over all links
+* combine css into single files
+* custom username in navbar

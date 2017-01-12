@@ -9,8 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'polls',
-  templateUrl: './polls.view.html',
-  styleUrls: ['./polls.view.css'],
+  templateUrl: './polls.view.html'
 })
 export class PollsComponent implements OnInit { 
   private currentRoute: string;
