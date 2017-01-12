@@ -132,7 +132,7 @@ footer {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 0px;
-    background: #EEEEEE;
+    background-color: #EEEEEE;
 }
 .brick-body div {
     display: flex
@@ -142,7 +142,6 @@ footer {
   justify-content: center;
   flex-grow: 1;
   padding: 10px 0px;
-  border-radius: 0.3rem;
 }
 .brick-footer {
   display: -webkit-box;
@@ -162,5 +161,9 @@ footer {
 }
 .brick-footer:hover {
   background: rgba(0, 146, 226, 0.8);
+  cursor: pointer;
+}
+.brick-button:hover {
+  background: rgb(220, 220, 220);
   cursor: pointer;
 }

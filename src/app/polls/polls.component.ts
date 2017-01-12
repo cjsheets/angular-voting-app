@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable,
+  FirebaseObjectObservable } from 'angularfire2';
 import { Subscription }   from 'rxjs/Subscription';
 import { AuthService } from '../navbar/auth.service';
 
@@ -7,23 +8,29 @@ import { Logger } from '../shared/logger.service';
 import { FirebaseDbService } from '../shared/firebase-db.service';
 import { ActivatedRoute } from '@angular/router';
 
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'polls',
   templateUrl: './polls.view.html'
 })
 export class PollsComponent implements OnInit { 
   private currentRoute: string;
-  private publicPolls$: FirebaseListObservable<any>;
-  private myPolls$: FirebaseListObservable<any>;
+  private pollList$: FirebaseListObservable<any>;
+  private myPollList$: FirebaseListObservable<any>;
+  private myResultObj$: FirebaseObjectObservable<any>;
   private bricks: Array<{}>;
   private subs: Subscription[] = [];
 
+  private pollToDelete = '';
+
   constructor(
+    private modalService: NgbModal,
     private _log: Logger,
     private _FireDb: FirebaseDbService,
     private _auth: AuthService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+  ) { }
 
 
   ngOnInit(): void {
@@ -32,13 +39,13 @@ export class PollsComponent implements OnInit {
 
       if(this.currentRoute == 'polls'){
         //this._log['log']('PollsComponent :: ngOnInit()')
-        this.publicPolls$ = this._FireDb.getPolls();
+        this.pollList$ = this._FireDb.getPolls();
         this.setupPolls();
 
       } else { // Route: my-polls
         this.subs[this.subs.length] = this._auth.af.auth.subscribe(auth => {
           if(auth) {
-            this.myPolls$ = this._FireDb.getMyPolls(this._auth.getUID());
+            this.myPollList$ = this._FireDb.getMyPolls(this._auth.getUID());
             this.setupMyPolls();
           }
         });
@@ -47,7 +54,7 @@ export class PollsComponent implements OnInit {
   }
 
   setupPolls(): void {
-    this.subs[this.subs.length] = this.publicPolls$.subscribe(polls => {
+    this.subs[this.subs.length] = this.pollList$.subscribe(polls => {
       this.bricks = [];
       //this._log['log']('setupPolls(): ', polls)
       polls.forEach(poll => {
@@ -59,7 +66,7 @@ export class PollsComponent implements OnInit {
   }
 
   setupMyPolls(): void {
-    this.subs[this.subs.length] = this.myPolls$.subscribe(polls => {
+    this.subs[this.subs.length] = this.myPollList$.subscribe(polls => {
       this.bricks = [];
       //this._log['log']('setupMyPolls(): ', polls)
       polls.forEach(poll => {
@@ -69,6 +76,27 @@ export class PollsComponent implements OnInit {
         this.bricks.push(poll)
       });
     });
+  }
+
+  getResultHandle(resultID: string): void {
+    this.myResultObj$ = this._FireDb.getResults(resultID);
+  }
+
+  open(content, question, resultID, pollID) {
+    this._log['log']( "Open Modal: ", atob(resultID), atob(pollID) );
+    this.pollToDelete = question;
+    this.modalService.open(content).result.then((result) => {
+      this.getResultHandle(atob(resultID));
+      this.myResultObj$.remove();
+      this.myPollList$.remove(atob(pollID));
+    }, (reason) => {
+      this._log['log']( "Dismissed, do nothing" );
+    });
+  }
+
+  deleteConfirmation(){
+      this._log['log']( 'popover' )
+
   }
 
   deletePoll(id): void {

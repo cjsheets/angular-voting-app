@@ -31,7 +31,7 @@
                 <div class="brick-button" [routerLink]="['/edit', brick.rKey, brick.pKey]">
                   Edit
                 </div>
-                <div class="brick-button" (click)="deletePoll(brick.key)">
+                <div class="brick-button" (click)="open(confirm, brick.question, brick.rKey, brick.pKey)">
                   Delete
                 </div>
               </div>
@@ -43,4 +43,20 @@
       </masonry>
     </div>
   </div>
+</div>
+
+<template #confirm let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">Are You Sure?</h5>
+  </div>
+  <div class="modal-body">
+    <p>The poll: &#34;<span style="color: #666666;">{{pollToDelete}}</span>&#34; and all its votes will be permanently removed.</p>
+    <p>Deleted polls are not recoverable.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="c()">Yes, Delete It</button>
+    <button type="button" class="btn btn-md btn-outline-secondary" (click)="d()">Cancel</button>
+  </div>
+</template>
+<div>
 </div>
