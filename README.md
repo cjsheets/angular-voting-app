@@ -34,10 +34,10 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 ## To-Do
 
 * Perform transactions when adding/removing polls
-* delete function
 * add user account to db
 * Signup button changes when logged in
 * redirect after save
+* change repo name
 
 
 ### Later..

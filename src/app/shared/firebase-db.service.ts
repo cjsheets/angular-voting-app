@@ -34,4 +34,15 @@ export class FirebaseDbService {
     this._log['log']('getResults(id): ' + id);
     return this.af.database.object('/voteApp/results/' + id);
   }
+
+  getUser(id): FirebaseObjectObservable<any> {
+    this._log['log']('getUser(id): ' + id);
+    let user$ = this.af.database.object('/voteApp/users/' + id)
+    user$.subscribe(user => {
+      if(!user.created){
+        user$.update({created: Date.now()})
+      }
+    });
+    return ;
+  }
 }

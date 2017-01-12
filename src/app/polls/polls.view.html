@@ -15,12 +15,12 @@
       <h3>Manage Your Polls</h3>
     </div>
     <div class="col-sm-6 text-right">
-      <button class="btn btn-md btn-outline-primary" [routerLink]="['../new']">New Poll</button>
+      <button class="btn btn-md btn-outline-primary" [routerLink]="['/new']">New Poll</button>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-sm">
+    <div class="col-sm" *ngIf="bricks.length > 0">
       <masonry>
         <masonry-brick class="brick" *ngFor="let brick of bricks">
           <div class="brick-header">
@@ -41,6 +41,11 @@
           </div>
           </masonry-brick>
       </masonry>
+    </div>
+    <div class="col-sm text-center" *ngIf="bricks.length === 0">
+      <br><br>
+      <p>Create a <a [routerLink]="['/new']">New Poll</a> to get started!</p>
+      <br><br>
     </div>
   </div>
 </div>

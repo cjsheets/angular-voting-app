@@ -19,7 +19,7 @@ export class PollsComponent implements OnInit {
   private pollList$: FirebaseListObservable<any>;
   private myPollList$: FirebaseListObservable<any>;
   private myResultObj$: FirebaseObjectObservable<any>;
-  private bricks: Array<{}>;
+  private bricks: Array<{}> = [];
   private subs: Subscription[] = [];
 
   private pollToDelete = '';

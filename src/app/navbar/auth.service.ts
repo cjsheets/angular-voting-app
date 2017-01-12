@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseAuthState,
+  FirebaseObjectObservable,
   AuthMethods, AuthProviders } from 'angularfire2';
 
 import { Observable } from 'rxjs/Observable';
@@ -7,24 +8,29 @@ import { Subject } from 'rxjs/Subject';
 
 import { Logger } from '../shared/logger.service';
 import { Router } from '@angular/router'
+import { FirebaseDbService } from '../shared/firebase-db.service';
 
 @Injectable()
 export class AuthService {
   private authState: FirebaseAuthState;
+  private userObj$: FirebaseObjectObservable<any>;
 
   constructor(
     public af: AngularFire,
     private _log: Logger,
+    private _FireDb: FirebaseDbService,
     private router: Router
   ) {
     this.af.auth.subscribe(auth => {
+      this._log['log']( "Auth State Updated: ", auth )
       this.authState = auth;
+      if(!auth.anonymous) this.userObj$ = 
+        this._FireDb.getUser(this.authState.uid);
       if(!auth) this.login();
     });
   }
 
   login(provider = ''): void {
-    this._log['log']( 'login(): ', provider );
     this.af.auth.login( this.getAuthProvider(provider)).then((success) => {
       this._log['log']( "Logged In: ", success )
     }).catch((err) => {
