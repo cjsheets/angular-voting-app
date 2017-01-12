@@ -56,7 +56,7 @@
           <button type='button' class="btn btn-sm btn-primary" (click)='addOption()'>+ Add Option</button>
         </div>
 
-        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['/my-polls']"><i class="zmdi zmdi-arrow-left"></i></button>
+        <button type='button' class="btn btn-md btn-outline-secondary" [routerLink]="['/av/my-polls']"><i class="zmdi zmdi-arrow-left"></i></button>
         <button type='button' class="btn btn-md btn-outline-success" type="submit" [disabled]="!fbForm.valid">
           <span *ngIf="currentRoute === 'new'"><i class="zmdi zmdi-plus"></i></span>
           <span *ngIf="currentRoute === 'edit'"><i class="zmdi zmdi-floppy"></i></span>

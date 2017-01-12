@@ -18,13 +18,13 @@ export const routedComponents = [
 ];
 
 const routes: Routes = [
-  { path: 'polls', component: PollsComponent },
-  { path: 'my-polls', component: PollsComponent },
-  { path: 'vote/:id', component: VoteComponent },
-  { path: 'new', component: AdminComponent },
-  { path: 'edit/:rid/:pid', component: AdminComponent },
-  { path: '', component: WelcomeComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: 'av/polls', component: PollsComponent },
+  { path: 'av/my-polls', component: PollsComponent },
+  { path: 'av/vote/:id', component: VoteComponent },
+  { path: 'av/new', component: AdminComponent },
+  { path: 'av/edit/:rid/:pid', component: AdminComponent },
+  { path: 'av', component: WelcomeComponent },
+  { path: '**', redirectTo: 'av', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 <div class="jumbotron jumbotron-fluid jumbotron-blue text-center">
   <h1 class="display-4">Angular Voting</h1>
   <p class="lead">Custom polls with live results.</p>
-  <button class="btn btn-lg btn-success" [routerLink]="['/polls']">
+  <button class="btn btn-lg btn-success" [routerLink]="['/av/polls']">
     Cast Your Vote
   </button>
 </div>
@@ -38,7 +38,7 @@
 </div>
 <div class="jumbotron jumbotron-fluid jumbotron-gray text-center" *ngIf="(_auth.af.auth | async) && !(_auth.af.auth | async)?.anonymous">
   <p class="lead lead-heading">Manage Your Polls</p>
-  <button class="btn btn-lg btn-success" [routerLink]="['/my-polls']">
+  <button class="btn btn-lg btn-success" [routerLink]="['/av/my-polls']">
     My Polls
   </button> &nbsp; &nbsp;
 </div>
@@ -58,7 +58,7 @@
     <div class="col-sm text-center">
       <i class="zmdi zmdi-github-alt"></i>
       <h3>Open Source</h3>
-      <p>Full source code available on <a href="https://github.com/cjsheets/FCC-Voting-App">GitHub</a>.</p>
+      <p>Full source code available on <a href="https://github.com/cjsheets/angular-voting-app">GitHub</a>.</p>
     </div>
   </div>
 </div>

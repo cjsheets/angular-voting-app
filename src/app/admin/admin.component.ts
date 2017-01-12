@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs[this.subs.length] = this.route.url.subscribe(url => {
-      this.currentRoute = url[0].path;
+      this.currentRoute = url[1].path;
       this.buildForm();
       if(this.currentRoute == 'edit') {
         this.getUrlParams();

@@ -15,7 +15,7 @@
       <h3>Manage Your Polls</h3>
     </div>
     <div class="col-sm-6 text-right">
-      <button class="btn btn-md btn-outline-primary" [routerLink]="['/new']">New Poll</button>
+      <button class="btn btn-md btn-outline-primary" [routerLink]="['/av/new']">New Poll</button>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
           </div>
             <div class="brick-body" *ngIf="currentRoute === 'my-polls'">
               <div>
-                <div class="brick-button" [routerLink]="['/edit', brick.rKey, brick.pKey]">
+                <div class="brick-button" [routerLink]="['/av/edit', brick.rKey, brick.pKey]">
                   Edit
                 </div>
                 <div class="brick-button" (click)="open(confirm, brick.question, brick.rKey, brick.pKey)">
@@ -36,7 +36,7 @@
                 </div>
               </div>
             </div>
-          <div class="brick-footer" [routerLink]="['/vote', brick.rKey]">
+          <div class="brick-footer" [routerLink]="['/av/vote', brick.rKey]">
             Vote
           </div>
           </masonry-brick>
@@ -44,7 +44,7 @@
     </div>
     <div class="col-sm text-center" *ngIf="bricks.length === 0">
       <br><br>
-      <p>Create a <a [routerLink]="['/new']">New Poll</a> to get started!</p>
+      <p>Create a <a [routerLink]="['/av/new']">New Poll</a> to get started!</p>
       <br><br>
     </div>
   </div>
