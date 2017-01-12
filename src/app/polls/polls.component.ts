@@ -32,7 +32,7 @@ export class PollsComponent implements OnInit {
       this.currentRoute = url[0].path;
 
       if(this.currentRoute == 'polls'){
-        this._log['log']('PollsComponent :: ngOnInit()')
+        //this._log['log']('PollsComponent :: ngOnInit()')
         this.publicPolls$ = this._FireDb.getPolls();
         this.setupPolls();
 
@@ -50,7 +50,7 @@ export class PollsComponent implements OnInit {
   setupPolls(): void {
     this.subs[this.subs.length] = this.publicPolls$.subscribe(polls => {
       this.bricks = [];
-      this._log['log'](polls)
+      //this._log['log']('setupPolls(): ', polls)
       polls.forEach(poll => {
         // Base64 Encode for minor obscurification
         poll.rKey = btoa(poll.results);
@@ -62,9 +62,8 @@ export class PollsComponent implements OnInit {
   setupMyPolls(): void {
     this.subs[this.subs.length] = this.myPolls$.subscribe(polls => {
       this.bricks = [];
-      this._log['log'](polls)
+      //this._log['log']('setupMyPolls(): ', polls)
       polls.forEach(poll => {
-        //this._log['log']('poll: ', poll);
         // Base64 Encode for minor obscurification
         poll.pKey = btoa(poll.$key);
         poll.rKey = btoa(poll.results);

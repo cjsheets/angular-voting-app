@@ -19,7 +19,7 @@ export class FirebaseDbService {
   }
 
   getMyPolls(id): FirebaseListObservable<any> {
-    this._log['log']('getPolls(), limit: 20, UID: ', id);
+    this._log['log']('getMyPolls(), limit: 20, UID: ', id);
     return this.af.database.list('/voteApp/polls', {
       query: {limitToLast: 20, orderByChild: 'owner', equalTo: id}
     });

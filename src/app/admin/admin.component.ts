@@ -18,26 +18,28 @@ import { Subscription }   from 'rxjs/Subscription';
   styleUrls: ['./admin.view.css'],
 })
 export class AdminComponent implements OnInit, OnDestroy { 
-  private id = {};  // {poll: .., result: ..}
+  private recordID = {};  // {poll: .., result: ..}
   private currentRoute: string;
   private pollList$: FirebaseListObservable<any>;
   private resultList$: FirebaseListObservable<any>;
-  private result$: FirebaseObjectObservable<any>;
+  private resultObj$: FirebaseObjectObservable<any>;
   private resultData: any;
-  private staticOptions: string[] = [];
   private minOptions: number = 2;
-  public newPollForm: FormGroup;
+  public fbForm: FormGroup;
   private subs: Subscription[] = [];
   public chartEmpty: boolean = true;
   public chartLabels: string[] = [];
   public chartData: number[] = [];
+
+  // .../edit
+  private staticOptions: string[] = [];
 
   constructor(
     private af: AngularFire,
     private _fb: FormBuilder,
     private _auth: AuthService,
     private _log: Logger,
-    private _mpS: FirebaseDbService,
+    private _FireDb: FirebaseDbService,
     private route: ActivatedRoute
   ) {}
 
@@ -51,15 +53,16 @@ export class AdminComponent implements OnInit, OnDestroy {
       } else {
         this.getPollList();
         this.addOption();
+        this.initChart(true);
       }
     });    
   }
 
   getUrlParams(): void {
     this.subs[this.subs.length] = this.route.params.subscribe(params => {
-      this.id['poll'] = atob(params['pid']);
-      this.id['result'] = atob(params['rid']);
-      this._log['log']( 'route.params: ', params, this.id );
+      this.recordID['poll'] = atob(params['pid']);
+      this.recordID['result'] = atob(params['rid']);
+      //this._log['log']( 'getUrlParams(): ', params, this.recordID );
     });
   }
 
@@ -69,53 +72,74 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   getPollData(): void {
-    this.result$ = this._mpS.getResults(this.id['result']);
-    this.subs[this.subs.length] = this.result$.subscribe(results => {
+    this.resultObj$ = this._FireDb.getResults(this.recordID['result']);
+    this.subs[this.subs.length] = this.resultObj$.subscribe(results => {
       this.resultData = results;
-      this.newPollForm.patchValue({
+      this.fbForm.patchValue({
         question: this.resultData.question
       })
-      this.newPollForm.get('question').disable();
+      this.fbForm.get('question').disable();
       for(let option in this.resultData.options) this.staticOptions.push(option);
-      this.initChart();
+      this.initChart(false);
       this.minOptions = 1;
-      this._log['log']( 'getPollData(): ', this.resultData );
+      //this._log['log']( 'getPollData(): ', this.resultData );
     });
   }
 
-  initChart(): void {
-    this.chartEmpty = false;
+  initChart(chartIsEmpty: boolean): void {
+    this.chartEmpty = chartIsEmpty;
     this.chartLabels = [];
     this.chartData = [];
     for(let option of this.staticOptions){
       this.chartLabels.push(option);
       this.chartData.push(1);
     }
+    //this._log['log']( 'initChart(): ', this.staticOptions );
+  }
+
+  updateChart(formOptions): void {
+    this.chartLabels = [];
+    this.chartData = [];
+    for(let option of this.staticOptions){
+      this.chartLabels.push(option);
+      this.chartData.push(1);
+    }
+    for(let formOption of formOptions){
+      if(formOption.option){
+        this._log['log']( 'updateChart(): ', formOption.option );
+        this.chartLabels.push(formOption.option);
+        this.chartData.push(1);
+        this.chartEmpty = false;
+      }
+    }
   }
   
   buildForm() {
-    this.newPollForm = this._fb.group({
-      question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(200)]],
+    this.fbForm = this._fb.group({
+      question: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(72)]],
       options: this._fb.array([
         this.initOptions()
       ])
+    });
+    this.fbForm.valueChanges.subscribe(data => {
+      this.updateChart(data.options);
     });
   }
 
   initOptions() {
     return this._fb.group({
-      option: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+      option: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(72)]],
       votes: [0, Validators.required]
     });
   }
   
   addOption() {
-    const control = <FormArray>this.newPollForm.controls['options'];
+    const control = <FormArray>this.fbForm.controls['options'];
     control.push(this.initOptions());
   }
 
   removeOption(i: number) {
-    const control = <FormArray>this.newPollForm.controls['options'];
+    const control = <FormArray>this.fbForm.controls['options'];
     control.removeAt(i);
   }
 
@@ -125,36 +149,20 @@ export class AdminComponent implements OnInit, OnDestroy {
     if(this.currentRoute == 'edit'){
       let allOptions = Object.assign(options, this.resultData.options);
       results = {options: allOptions, question: this.resultData.question};
-      let promise = this.result$.update({options: allOptions});
+      let promise = this.resultObj$.update({options: allOptions});
     } else {
       results = {options: options, question: model.controls.question.value};
       let promise = this.resultList$.push(results);
       promise.then( res => {
-        this._log['log']( res );
         let polls = {
           owner: this._auth.getUID(),
           question: model.controls.question.value,
           results: res.key
         }
         this.pollList$.push(polls);
-        //this._log['log']( results );
       });
     }
-    this._log['log']( options, results );
-  }
-
-  // Doughnut
-  public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData:number[] = [1, 1, 1];
-  public doughnutChartType:string = 'doughnut';
-
-  // events
-  public chartClicked(e:any):void {
-    //console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    //console.log(e);
+    //this._log['log']( 'save(): ', options, results );
   }
   
   ngOnDestroy() {
