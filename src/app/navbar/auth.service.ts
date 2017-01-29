@@ -1,3 +1,6 @@
+/* -----------------------------------|
+ *|  Auth Service - Firebase
+ */
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseAuthState,
   FirebaseObjectObservable,
